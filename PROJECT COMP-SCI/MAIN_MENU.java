@@ -125,19 +125,19 @@ public class MAIN_MENU extends JFrame {
         var Z = new JMenuItem("Z FLOW STATEMENT", exitIcon);
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
-        costs.setToolTipText("CAN ENTER X");
-        income.setToolTipText("CAN ENTER Y");
-        cash_flow.setToolTipText("CAN CREATE Z");
+        X.setToolTipText("CAN ENTER X");
+        Y.setToolTipText("CAN ENTER Y");
+        Z.setToolTipText("CAN CREATE Z");
         
         X.addActionListener((event) -> System.exit(0));
         Y.addActionListener((event) -> System.exit(0));
         Z.addActionListener((event) -> System.exit(0));
         
-        add_info.add(costs);
+        add_info.add(X);
         add_info.addSeparator();
-        add_info.add(income);
+        add_info.add(Y);
         add_info.addSeparator();
-        add_info.add(cash_flow);
+        add_info.add(Z);
       
         
         menuBar.add(customer_menu);
