@@ -1,13 +1,9 @@
-
-
-
- 
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 
 import javax.swing.JButton;
@@ -17,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Login extends JFrame implements ActionListener {
+public class Login extends JFrame{
 
     JPanel panel;
     JLabel user_label, password_label, message;
@@ -25,8 +21,12 @@ public class Login extends JFrame implements ActionListener {
     JPasswordField password_text;
     JButton submit, cancel;
 
-   Login() {
-        
+    Login() {
+        initUI();
+    }
+    
+    private void initUI() {
+                
         // User Label
         user_label = new JLabel();
         user_label.setText("User Name :");
@@ -34,16 +34,15 @@ public class Login extends JFrame implements ActionListener {
         userName_text = new JTextField();
         
         // Password
-
         password_label = new JLabel();
         password_label.setText("Password :");
+        password_label.setFont(new Font("Serif",Font.PLAIN,40));
         password_text = new JPasswordField();
 
-        // Submit
-
+        // SubmitButton
         submit = new JButton("SUBMIT");
 
-        panel = new JPanel(new GridLayout(1,4));
+        panel = new JPanel(new GridLayout(3,4));
 
         panel.add(user_label);
         panel.add(userName_text);
@@ -57,21 +56,14 @@ public class Login extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
-        submit.addActionListener(this);
+        submit.addActionListener((event) -> submit_action());
         add(panel, BorderLayout.CENTER);
         setTitle("Please Login Here !");
         setSize(1500, 750);
         setVisible(true);
-
     }
 
-    public static void main(String[] args) {
-        new Login();
-        
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void submit_action() {
         String userName = userName_text.getText();
         String password = password_text.getText();
         if (userName.trim().equals("admin") && password.trim().equals("admin")) {
@@ -82,7 +74,13 @@ public class Login extends JFrame implements ActionListener {
         }
 
     }
-
+    
+        
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+        var login = new Login();
+        });
+    }
 }
     
     
