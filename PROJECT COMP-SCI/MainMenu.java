@@ -89,7 +89,7 @@ public class MainMenu extends JFrame {
         order_menu.addSeparator();
         order_menu.add(order_control);
       
-      //THIS IS THE MENU FOR FINANCE
+        //THIS IS THE MENU FOR FINANCE
         var finance = new JMenu("FINANCE");
         
         finance.setMnemonic(KeyEvent.VK_F);
@@ -145,14 +145,10 @@ public class MainMenu extends JFrame {
         menuBar.add(add_info);
         
         setJMenuBar(menuBar);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-
-        EventQueue.invokeLater(() -> {
-
             var ex = new MainMenu();
-            ex.setVisible(true);
-        });
     }
 }
