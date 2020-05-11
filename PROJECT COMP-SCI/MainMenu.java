@@ -1,5 +1,3 @@
- 
-
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -8,9 +6,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class MAIN_MENU extends JFrame {
+public class MainMenu extends JFrame {
 
-    public MAIN_MENU() {
+    public MainMenu() {
 
         initUI();
     }
@@ -70,7 +68,7 @@ public class MAIN_MENU extends JFrame {
         //THIS IS THE MENU FOR ORDERS
         var order_menu = new JMenu("ORDERS");
         
-        employee_menu.setMnemonic(KeyEvent.VK_F);
+        employee_menu.setMnemonic(KeyEvent.VK_O);
 
         var place_orders = new JMenuItem("PLACE ORDER", exitIcon);
         var review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
@@ -153,7 +151,7 @@ public class MAIN_MENU extends JFrame {
 
         EventQueue.invokeLater(() -> {
 
-            var ex = new MAIN_MENU();
+            var ex = new MainMenu();
             ex.setVisible(true);
         });
     }
