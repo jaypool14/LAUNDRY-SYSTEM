@@ -5,25 +5,23 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.BorderLayout;
+
 
 public class MainMenu extends JFrame {
-
-    public MainMenu() {
-
-        initUI();
-    }
-
-    private void initUI() {
+    public void initUI() {
 
         createMenuBar();
-
+        setVisible(true);
+        setLocationRelativeTo(null);
+        //pack(); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Simple menu");
         setSize(350, 250);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void createMenuBar() {
+    public JMenuBar createMenuBar() {
+        //JFrame frame = new JFrame("JFrame Example");  
 
         var menuBar = new JMenuBar();
         var exitIcon = new ImageIcon("src/resources/exit.png");
@@ -49,7 +47,7 @@ public class MainMenu extends JFrame {
         //THIS IS THE MENU FOR EMPLOYEES
         var employee_menu = new JMenu("EMPLOYEES");
         
-        employee_menu.setMnemonic(KeyEvent.VK_F);
+        employee_menu.setMnemonic(KeyEvent.VK_N);
 
         var new_employee = new JMenuItem("ADD NEW EMPLOYEES", exitIcon);
         var manage_employee = new JMenuItem("MANAGE EMPLOYEES", exitIcon);
@@ -143,12 +141,17 @@ public class MainMenu extends JFrame {
         menuBar.add(order_menu);
         menuBar.add(finance);
         menuBar.add(add_info);
+       
         
-        setJMenuBar(menuBar);
-        setVisible(true);
+        //setJMenuBar(menuBar);
+        add(menuBar, BorderLayout.NORTH); 
+        add(menuBar, BorderLayout.SOUTH); 
+        
+        return menuBar;
     }
 
     public static void main(String[] args) {
             var ex = new MainMenu();
+            ex.initUI();
     }
 }

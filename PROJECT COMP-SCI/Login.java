@@ -20,23 +20,24 @@ public class Login extends JFrame{
     JTextField userName_text;
     JPasswordField password_text;
     JButton submit, cancel;
-
-    Login() {
-        initUI();
+    public void initUI(){
+        createLogin();
+        setVisible(true);
     }
     
-    private void initUI() {
-                
+    public JPanel createLogin() {
+        
+        
         // User Label
         user_label = new JLabel();
         user_label.setText("User Name :");
-        user_label.setFont(new Font("Serif",Font.PLAIN,40));
+        user_label.setFont(new Font("Serif",Font.PLAIN,20));
         userName_text = new JTextField();
         
         // Password
         password_label = new JLabel();
         password_label.setText("Password :");
-        password_label.setFont(new Font("Serif",Font.PLAIN,40));
+        password_label.setFont(new Font("Serif",Font.PLAIN,20));
         password_text = new JPasswordField();
 
         // SubmitButton
@@ -59,18 +60,20 @@ public class Login extends JFrame{
         submit.addActionListener((event) -> submit_action());
         add(panel, BorderLayout.CENTER);
         setTitle("Please Login Here !");
-        setSize(1500, 750);
-        setVisible(true);
+        setSize(250, 125);
+        
+        return panel;
     }
 
-    public void submit_action() {
+    public boolean submit_action() {
         String userName = userName_text.getText();
         String password = password_text.getText();
         if (userName.trim().equals("admin") && password.trim().equals("admin")) {
-            message.setText(" Hello " + userName
-                    + "");
+            message.setText(" Hello " + userName+ "");
+            return true;
         } else {
             message.setText(" Invalid user.. ");
+            return false;
         }
 
     }
@@ -78,6 +81,7 @@ public class Login extends JFrame{
         
     public static void main(String[] args) {
         var login = new Login();
+        login.initUI();
     }
 }
     

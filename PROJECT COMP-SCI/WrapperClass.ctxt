@@ -1,9 +1,9 @@
 #BlueJ class context
-comment0.target=MainMenu
+comment0.target=WrapperClass
 comment1.params=
-comment1.target=void\ initUI()
+comment1.target=void\ get_element()
 comment2.params=
-comment2.target=javax.swing.JMenuBar\ createMenuBar()
+comment2.target=void\ login_action()
 comment3.params=args
 comment3.target=void\ main(java.lang.String[])
 numComments=4
