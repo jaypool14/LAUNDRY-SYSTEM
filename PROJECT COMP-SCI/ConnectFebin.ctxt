@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=ConnectFebin
+comment0.text=\r\n\r\n\ @author\ sqlitetutorial.net\r\n
+comment1.params=
+comment1.target=java.sql.Connection\ connect()
+comment1.text=\r\n\ Connect\ to\ a\ sample\ database\r\n
+comment2.params=
+comment2.target=void\ selectAll()
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+comment3.text=\r\n\ @param\ args\ the\ command\ line\ arguments\r\n
+numComments=4
