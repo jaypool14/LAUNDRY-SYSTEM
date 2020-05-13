@@ -6,6 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
+import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
@@ -134,13 +135,16 @@ public class MainMenu extends JFrame {
         add_info.add(Y);
         add_info.addSeparator();
         add_info.add(Z);
-      
+        
+        var helpMenu = new JMenu("Help");
         
         menuBar.add(customer_menu);
         menuBar.add(employee_menu);
         menuBar.add(order_menu);
         menuBar.add(finance);
         menuBar.add(add_info);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(helpMenu);
        
         
         //setJMenuBar(menuBar);

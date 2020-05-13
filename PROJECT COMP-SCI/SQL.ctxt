@@ -1,9 +1,7 @@
 #BlueJ class context
 comment0.target=SQL
-comment1.params=
-comment1.target=void\ connect()
-comment1.text=\r\n\ Connect\ to\ a\ sample\ database\r\n
+comment1.params=query
+comment1.target=java.sql.ResultSet\ execute(java.lang.String)
 comment2.params=args
 comment2.target=void\ main(java.lang.String[])
-comment2.text=\r\n\ @param\ args\ the\ command\ line\ arguments\r\n
 numComments=3

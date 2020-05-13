@@ -4,6 +4,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Color;
 
 
 import javax.swing.JButton;
@@ -12,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class Login extends JFrame{
 
@@ -27,32 +32,56 @@ public class Login extends JFrame{
     
     public JPanel createLogin() {
         
+        panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(10, 10, 10, 10);
         
         // User Label
         user_label = new JLabel();
         user_label.setText("User Name :");
+        user_label.setForeground(Color.WHITE);
         user_label.setFont(new Font("Serif",Font.PLAIN,20));
-        userName_text = new JTextField();
+        userName_text = new JTextField(20);
         
         // Password
         password_label = new JLabel();
         password_label.setText("Password :");
+        password_label.setForeground(Color.WHITE);
         password_label.setFont(new Font("Serif",Font.PLAIN,20));
-        password_text = new JPasswordField();
+        password_text = new JPasswordField(20);
 
         // SubmitButton
         submit = new JButton("SUBMIT");
+        
+                
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(user_label,constraints);
+        
+        constraints.gridx = 1;
+        panel.add(userName_text,constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        panel.add(password_label,constraints);
+        
+        constraints.gridx = 1;
+        panel.add(password_text,constraints);
 
-        panel = new JPanel(new GridLayout(3,4));
-
-        panel.add(user_label);
-        panel.add(userName_text);
-        panel.add(password_label);
-        panel.add(password_text);
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        panel.add(submit,constraints);
 
         message = new JLabel();
-        panel.add(message);
-        panel.add(submit);
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.gridwidth = 2;
+
+        panel.add(message,constraints);
+        
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -60,22 +89,33 @@ public class Login extends JFrame{
         submit.addActionListener((event) -> submit_action());
         add(panel, BorderLayout.CENTER);
         setTitle("Please Login Here !");
-        setSize(250, 125);
-        
+        pack();
+        panel.setOpaque(false);
         return panel;
     }
 
     public boolean submit_action() {
+        SQL sql = new SQL();
         String userName = userName_text.getText();
         String password = password_text.getText();
-        if (userName.trim().equals("admin") && password.trim().equals("admin")) {
-            message.setText(" Hello " + userName+ "");
+        String query = "SELECT * FROM login WHERE username='"+userName+"' AND password='"+password+"'";
+        System.out.println(query);
+        try{
+        if (sql.execute(query).next()) {
+            //message.setText(" Hello " + userName+ "");
             return true;
-        } else {
-            message.setText(" Invalid user.. ");
+        } 
+        else {
+            System.out.println("False");
+            //message.setText(" Invalid user.. ");
             return false;
         }
-
+       }
+        catch ( Exception e ) {
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        return false;
+       }
+    
     }
     
         

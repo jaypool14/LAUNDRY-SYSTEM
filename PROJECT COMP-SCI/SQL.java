@@ -1,40 +1,41 @@
+import java.sql.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-public class SQL
-{
-
-     /**
-     * Connect to a sample database
-     */
-    public static void connect() {
-        Connection conn = null;
-        try {
-            // db parameters
-            String url = "jdbc:sqlite:C:\\Users\\user\\Documents\\PROJECT COMP SCI\\LAUNDRY-SYSTEM\\PROJECT COMP-SCI\\PRACTICE.db";
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-            
-            System.out.println("Connection to SQLite has been established.");
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+public class SQL {
+    public static ResultSet execute(String query)
+    {
+       Connection c = null;
+       Statement stmt = null;
+       ResultSet rs = null;
+       try {
+        //Class.forName("org.sqlite.JDBC");
+      
+       c = DriverManager.getConnection("jdbc:sqlite:.\\PRACTICE.db");
+       c.setAutoCommit(false);
+       System.out.println("Opened database successfully");
+       stmt = c.createStatement();
+       rs = stmt.executeQuery(query);
+      
+       /*while ( rs.next() ) {
+         String  username = rs.getString("username");
+         String  password = rs.getString("password");  
+         System.out.println( username );
+         System.out.println(password);
+         System.out.println();
+       }*/
+       
+       //stmt.close();
+       //c.close();
+       return rs;
+       } 
+       catch ( Exception e ) {
+       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+       System.exit(0);
+       return null;
+       }
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        connect();
+
+    public static void main( String args[] ) {
+        execute("SELECT * FROM login WHERE username='admin' AND password='pass'");
+      
     }
 }
-
