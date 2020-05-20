@@ -52,7 +52,7 @@ public class Login extends JFrame{
         password_text = new JPasswordField(20);
 
         // SubmitButton
-        submit = new JButton("SUBMIT");
+        submit = new JButton("LOGIN");
         
                 
         constraints.gridx = 0;

@@ -22,78 +22,92 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.Box;
     
-    public class WrapperClass extends JFrame {
-        JMenuBar menuBar; 
-        JPanel jpanel;
-        Login login;
+    public class WrapperClass extends JFrame 
+    {
+    JMenuBar menuBar; 
+    JPanel jpanel;
+    Login login;
+    MainMenu main_menu;
+    JLabel mainPanel;
+    JPanel details_panel = new JPanel();
+    GridBagConstraints constraints = new GridBagConstraints();
         
-        public void get_element(){
-            login = new Login();
-            var main_menu = new MainMenu();
-            menuBar = main_menu.createMenuBar();
-            jpanel = login.createLogin();
-            login.submit.addActionListener((event) -> login_action());
-            
-            // ######## Setting background
-            String BACKHGROUND_IMAGE_URL = ".\\background.jpeg";
-            final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
-            } 
-            catch (IOException e) {
-            e.printStackTrace();
+    public void get_element(){
+        login = new Login();
+        main_menu = new MainMenu();
+        menuBar = main_menu.createMenuBar();
+        jpanel = login.createLogin();
+        login.submit.addActionListener((event) -> login_action());
+        main_menu.customer_sub.addActionListener((event) -> newcustomer_action());
+        
+        // ######## Setting background
+        String BACKHGROUND_IMAGE_URL = ".\\background3.jpeg";
+        final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
+        } 
+        catch (IOException e) {
+        e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(820, 460, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        mainPanel = new JLabel(imageIcon) 
+        {
+            @Override
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                Dimension lmPrefSize = getLayout().preferredLayoutSize(this);
+                size.width = Math.max(size.width, lmPrefSize.width);
+                size.height = Math.max(size.height, lmPrefSize.height);
+                return size;
             }
-            Image dimg = img.getScaledInstance(1366, 768, Image.SCALE_SMOOTH);
-            ImageIcon imageIcon = new ImageIcon(dimg);
-            JLabel mainPanel = new JLabel(imageIcon) 
-            {
-                @Override
-                public Dimension getPreferredSize() {
-                    Dimension size = super.getPreferredSize();
-                    Dimension lmPrefSize = getLayout().preferredLayoutSize(this);
-                    size.width = Math.max(size.width, lmPrefSize.width);
-                    size.height = Math.max(size.height, lmPrefSize.height);
-                    return size;
-                }
-            };
-            // ##############
-            mainPanel.setLayout(new GridBagLayout());
-            setExtendedState(JFrame.MAXIMIZED_BOTH); 
-            //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
-         
-            //setLayout(new GridBagLayout());
-            GridBagConstraints constraints = new GridBagConstraints();
-            //constraints.insets = new Insets(10, 10, 10, 10);
-            constraints.weightx = 1.0;
-            constraints.anchor = GridBagConstraints.WEST;
-            constraints.gridwidth = GridBagConstraints.REMAINDER;
-            // Let's put a filler bottom component that will push the rest to the top
-            constraints.weighty = 1.0;
-            mainPanel.add(Box.createGlue(), constraints);
+        };
+        // ##############
+        mainPanel.setLayout(new GridBagLayout());
+        //setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
+     
+        //setLayout(new GridBagLayout());
         
-               
-            constraints.anchor = GridBagConstraints.CENTER;
-            constraints.gridx = 0;
-            constraints.gridy = 0;   
-            mainPanel.add(jpanel,constraints);
-       
-            constraints.anchor = GridBagConstraints.NORTH;
-            constraints.fill = GridBagConstraints.HORIZONTAL;  
-            constraints.gridx = 0;
-            constraints.gridy = 0;   
-            mainPanel.add(menuBar,constraints);
- 
-            //jpanel.setSize(250, 125);
-            
-            //asetUndecorated(true);
-            menuBar.setVisible(false);
-            setTitle("LAUNDRY MANAGEMENT SYSTEM");
+        //constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.weightx = 1.0;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        // Let's put a filler bottom component that will push the rest to the top
+        constraints.weighty = 1.0;
+        mainPanel.add(Box.createGlue(), constraints);
+    
+           
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+        mainPanel.add(jpanel,constraints);
+   
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+        mainPanel.add(menuBar,constraints);
         
-            add(mainPanel);
-            pack();
-            setVisible(true);
-    }
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;    
+        constraints.gridx = 1;
+        constraints.gridy = 1;   
+        mainPanel.add(details_panel,constraints);
+        
+        setSize(500, 500);
+        
+        //asetUndecorated(true);
+        menuBar.setVisible(false);
+        details_panel.setVisible(false);
+        details_panel.setOpaque(false);
+        setTitle("LAUNDRY MANAGEMENT SYSTEM");
+    
+        add(mainPanel);
+        pack();
+        setVisible(true);
+     }
     
     public void login_action(){
         if (login.submit_action()==true)
@@ -104,8 +118,18 @@ import javax.swing.Box;
         else{
         JOptionPane.showMessageDialog(this, "InvalidLogin.","Error",JOptionPane.ERROR_MESSAGE); 
         }
-    
     }
+    
+    public void newcustomer_action(){
+        NewCustomer new_customer = new NewCustomer();
+        JPanel newcustomer = new_customer.newCustomer();
+        //constraints.anchor = GridBagConstraints.SOUTH;
+        //constraints.gridx = 0;
+        //constraints.gridy = 0;   
+        details_panel.add(newcustomer);
+        details_panel.setVisible(true);
+    }
+
     public static void main(String[] args) {
           var wrapper = new WrapperClass();
           wrapper.get_element();
