@@ -134,8 +134,35 @@ public class NewCustomer extends JFrame{
         var login = new NewCustomer();
         login.initUI();
     }
-}
     
+    public boolean customeraddaction ()
+    {SQL sql = new SQL();
+        String Name = name_label_text.getText();
+        String Address = address_label_text.getText();
+        String Number =  number_label_text.getText();
+        String Email =  email_label_text.getText();
+        
+     
+        String query = String.format("INSERT INTO customer (name,number, address,email) VALUES ('%s','%s','%s','%s');", Name, Number, Address, Email);
+        System.out.println(query);
+        try{
+        if (sql.execute(query).next()) {
+            //message.setText(" Hello " + userName+ "");
+            return true;
+        } 
+        else {
+            System.out.println("False");
+            //message.setText(" Invalid user.. ");
+            return false;
+        }
+       }
+        catch ( Exception e ) {
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        return false;
+        
+    }
+
+}}
     
 
 

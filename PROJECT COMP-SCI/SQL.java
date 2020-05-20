@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class SQL {
-    public static ResultSet execute(String query)
+    public static void execute(String query, int ret)
     {
        Connection c = null;
        Statement stmt = null;
@@ -13,7 +13,10 @@ public class SQL {
        c.setAutoCommit(false);
        System.out.println("Opened database successfully");
        stmt = c.createStatement();
+       if (ret==0)
        rs = stmt.executeQuery(query);
+       else
+       stmt.executeQuery(query);
       
        /*while ( rs.next() ) {
          String  username = rs.getString("username");
@@ -25,17 +28,22 @@ public class SQL {
        
        //stmt.close();
        //c.close();
-       return rs;
+       //if (ret==0)
+       //return rs;
+       //else
+       //return null;
        } 
        catch ( Exception e ) {
        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
        System.exit(0);
-       return null;
+       //return null;
        }
     }
 
     public static void main( String args[] ) {
-        execute("SELECT * FROM login WHERE username='admin' AND password='pass'");
+       
+       execute("INSERT INTO customer (name,number, address,email) VALUES ('s','22','s3','s4')", 1    );
+       // System.out.println(customeresult);
       
     }
 }
