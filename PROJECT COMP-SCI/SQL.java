@@ -25,6 +25,8 @@ public class SQL {
        //stmt.close();
        //c.close();
        //if (ret==0)
+      // stmt.close();
+       //c.close();
        return rs;
        //else
        //return null;
@@ -36,11 +38,11 @@ public class SQL {
        }
     }
     
-    public static ResultSet updatequery(String query)
+    public static int updateQuery(String query)
     {
        Connection c = null;
        Statement stmt = null;
-       ResultSet rs = null;
+       int rs = 0;
        try {
         //Class.forName("org.sqlite.JDBC");
       
@@ -48,7 +50,7 @@ public class SQL {
        c.setAutoCommit(false);
        System.out.println("Opened database successfully");
        stmt = c.createStatement();
-       rs = stmt.executeQuery(query);
+       rs = stmt.executeUpdate(query);
        /*while ( rs.next() ) {
          String  username = rs.getString("username");
          String  password = rs.getString("password");  
@@ -60,22 +62,24 @@ public class SQL {
        //stmt.close();
        //c.close();
        //if (ret==0)
+       stmt.close();
+       c.commit();
+       c.close();
        return rs;
        //else
        //return null;
        } 
        catch ( Exception e ) {
        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-       System.exit(0);
-       return null;
+       return 0;
        }
     }
 
 
     public static void main( String args[] ) {
-       
-       execute("SELECT * FROM login WHERE username='admin' AND password='pass'");
-       // System.out.println(customeresult);
+       updateQuery("INSERT INTO customer (name,number, address,email) VALUES ('t1','89','t3','t4');");
+      // execute("SELECT * FROM login WHERE username='admin' AND password='pass'");
+      // System.out.println(customeresult);
       
     }
 }

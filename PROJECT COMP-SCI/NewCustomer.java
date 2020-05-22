@@ -122,7 +122,7 @@ public class NewCustomer extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
-        submit.addActionListener((event) -> System.exit(0));
+        submit.addActionListener((event) -> customeraddaction ());
         add(panel, BorderLayout.CENTER);
         setTitle("Enter customer details here !");
         pack();
@@ -146,7 +146,7 @@ public class NewCustomer extends JFrame{
         String query = String.format("INSERT INTO customer (name,number, address,email) VALUES ('%s','%s','%s','%s');", Name, Number, Address, Email);
         System.out.println(query);
         try{
-        if (sql.execute(query).next()) {
+        if (sql.updateQuery(query)==0) {
             //message.setText(" Hello " + userName+ "");
             return true;
         } 
