@@ -26,7 +26,7 @@ public class SQL {
        //c.close();
        //if (ret==0)
       // stmt.close();
-       //c.close();
+       c.close();
        return rs;
        //else
        //return null;
