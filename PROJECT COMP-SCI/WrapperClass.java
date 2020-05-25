@@ -9,10 +9,10 @@ import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
-import javax.imageio.*;
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.Image;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,8 +20,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.Box;
     
-    public class WrapperClass extends JFrame 
-    {
+public class WrapperClass extends JFrame 
+{
     JMenuBar menuBar; 
     JPanel jpanel;
     Login login;
@@ -29,8 +29,9 @@ import javax.swing.Box;
     JLabel mainPanel;
     JPanel details_panel = new JPanel();
     GridBagConstraints constraints = new GridBagConstraints();
-        
-    public void get_element(){
+    
+    public void get_element()
+    {
         login = new Login();
         main_menu = new MainMenu();
         menuBar = main_menu.createMenuBar();
@@ -45,68 +46,73 @@ import javax.swing.Box;
         constraints.gridx = 0;
         constraints.gridy = 0;   
         mainPanel.add(jpanel,constraints);
-   
+        
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;  
         constraints.gridx = 0;
         constraints.gridy = 0;   
         mainPanel.add(menuBar,constraints);
-        
+    
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;    
         constraints.gridx = 1;
         constraints.gridy = 1;   
         mainPanel.add(details_panel,constraints);
-        
+    
         setSize(500, 500);
-        
+    
         //asetUndecorated(true);
         menuBar.setVisible(false);
         details_panel.setVisible(false);
         details_panel.setOpaque(false);
         setTitle("LAUNDRY MANAGEMENT SYSTEM");
-    
+
         add(mainPanel);
         pack();
         setVisible(true);
-     }
-    
-    public void login_action(){
+    }
+
+    public void login_action()
+    {
         if (login.submit_action()==true)
         {
             menuBar.setVisible(true);
             jpanel.setVisible(false);
         }
-        else{
-        JOptionPane.showMessageDialog(this, "InvalidLogin.","Error",JOptionPane.ERROR_MESSAGE); 
-        }
+        else
+            JOptionPane.showMessageDialog(this, "InvalidLogin.","Error",JOptionPane.ERROR_MESSAGE); 
     }
-    
-    public void newcustomer_action(){
+
+    public void newcustomer_action()
+    {
         NewCustomer new_customer = new NewCustomer();
         JPanel newcustomer = new_customer.newCustomer();
         new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
-      
+  
         //constraints.anchor = GridBagConstraints.SOUTH;
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
+        details_panel.removeAll(); 
         details_panel.add(newcustomer);
-        details_panel.setVisible(true);
-        
-    }
-     public void newemployee_action(){
-        NewEmployee new_employee = new NewEmployee();
-        JPanel newemployee = new_employee.newEmployee();
-        new_employee.submit.addActionListener((event) -> new_employee.employeeaddaction());
-      
-        //constraints.anchor = GridBagConstraints.SOUTH;
-        //constraints.gridx = 0;
-        //constraints.gridy = 0;   
-        details_panel.add(newemployee);
-        details_panel.setVisible(true);
-        
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
     }
     
+    public void newemployee_action()
+    {
+        NewEmployee new_employee = new NewEmployee();
+        JPanel newemployee = new_employee.newEmployee();
+        new_employee.submit.addActionListener((event) -> new_employee.employeeaddaction(this)); 
+        //constraints.anchor = GridBagConstraints.SOUTH;
+        //constraints.gridx = 0;
+        //constraints.gridy = 0;   
+        details_panel.removeAll();
+        details_panel.add(newemployee);
+        details_panel.updateUI();
+        details_panel.setVisible(true);
+    
+    }
+
     public void set_background()
     {
         // ######## Setting background
@@ -117,7 +123,7 @@ import javax.swing.Box;
             img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
         } 
         catch (IOException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
         Image dimg = img.getScaledInstance(820, 460, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
@@ -140,12 +146,9 @@ import javax.swing.Box;
         constraints.weighty = 1.0;
         mainPanel.add(Box.createGlue(), constraints);
     }
-    public void show_message(String message, int type)
-    {
-        JOptionPane.showMessageDialog(this, "Customer Added."); 
-    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
           var wrapper = new WrapperClass();
           wrapper.get_element();
     }

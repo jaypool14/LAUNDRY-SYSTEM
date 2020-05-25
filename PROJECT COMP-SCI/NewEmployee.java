@@ -19,7 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 public class NewEmployee extends JFrame
-{JPanel panel;
+{   
+    JPanel panel;
     JLabel title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message;
     JTextField name_label2_text,number_label2_text,email_label2_text,joindate_label_text;
     JButton submit, cancel;
@@ -27,13 +28,14 @@ public class NewEmployee extends JFrame
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
    
     public void initUI()
-{
+    {
        newEmployee();
        setVisible(true);
-}
+       submit.addActionListener((event) -> employeeaddaction (this));
+    }
 
-public JPanel newEmployee() {
-    
+    public JPanel newEmployee() 
+    {
         desiglist = new JComboBox(designation);
         desiglist.setSelectedIndex(0);
         
@@ -60,8 +62,7 @@ public JPanel newEmployee() {
         number_label2.setForeground(Color.WHITE);
         number_label2.setFont(new Font("Century",Font.BOLD,20));
         number_label2_text = new JTextField(20);
-   
-        
+      
         //EMAIL
         email_label2 = new JLabel();
         email_label2.setText("EMAIL :");
@@ -82,13 +83,10 @@ public JPanel newEmployee() {
         designation_label.setForeground(Color.WHITE);
         designation_label.setFont(new Font("Century",Font.BOLD,20));
      
-
-
         // SubmitButton
         submit = new JButton("ADD EMPLOYEE");
         
-        constraints.anchor = GridBagConstraints.WEST;
-        
+        constraints.anchor = GridBagConstraints.WEST;      
         constraints.gridx = 0;
         constraints.gridy = 4;
         panel.add(name_label2,constraints);
@@ -109,9 +107,6 @@ public JPanel newEmployee() {
         
         constraints.gridx = 1;
         panel.add(desiglist,constraints);
-       
-        
-       
         
         constraints.gridx = 0;
         constraints.gridy = 10;
@@ -126,7 +121,6 @@ public JPanel newEmployee() {
     
         panel.add(submit,constraints);
 
-        
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.weightx = 0;
        
@@ -137,46 +131,51 @@ public JPanel newEmployee() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
-        submit.addActionListener((event) -> employeeaddaction ());
         add(panel, BorderLayout.CENTER);
         setTitle("Enter employee details here !");
         pack();
         panel.setOpaque(false);
         return panel;
     }
-        public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         var login = new NewEmployee();
         login.initUI();
     }
     
-    public boolean employeeaddaction ()
-    {SQL sql = new SQL();
-        String Name = name_label2_text.getText();
-        String Number =  number_label2_text.getText();
-        String Email =  email_label2_text.getText();
-        String Designation= (String)desiglist.getSelectedItem();
+    public boolean employeeaddaction (JFrame jframe)
+    {
+       SQL sql = new SQL();
+       String Name = name_label2_text.getText();
+       String Number = number_label2_text.getText();
+       String Email = email_label2_text.getText();
+       String Designation= (String)desiglist.getSelectedItem();
      
-        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');", Name, Number, Email,"1120",Designation);
-        System.out.println(query);
-        try{
-        if (sql.updateQuery(query)!=0) {
-            //message.setText(" Hello " + userName+ "");
-             JOptionPane.showMessageDialog(this, "Employee added"); 
-            return true;
-        } 
-        else {
-            System.out.println("False");
-            //message.setText(" Invalid user.. ");
-            return false;
-        }
+       String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');", Name, Number, Email,"1120",Designation);
+       System.out.println(query);
+       try
+       {
+           if (sql.updateQuery(query)!=0) 
+           {
+               //message.setText(" Hello " + userName+ "");
+               JOptionPane.showMessageDialog(jframe, "Employee added"); 
+               return true;
+           } 
+           else 
+           {
+               System.out.println("False");
+               JOptionPane.showMessageDialog(jframe, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+               //message.setText(" Invalid user.. ");
+               return false;
+           }
        }
-        catch ( Exception e ) {
-        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        return false;
-        
+       catch ( Exception e ) 
+       {
+           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+           return false;
+       }
     }
-
-}}
+}
     
 
 

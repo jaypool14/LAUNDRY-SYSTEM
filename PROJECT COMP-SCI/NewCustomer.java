@@ -9,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,21 +18,23 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-public class NewCustomer extends JFrame{
-
+public class NewCustomer extends JFrame
+{
     JPanel panel;
     JLabel title_label,name_label,number_label,address_label,email_label, message;
     JTextField name_label_text,number_label_text,email_label_text;
     JTextArea address_label_text;
     JPasswordField password_text;
     JButton submit, cancel;
-    public void initUI(){
+    public void initUI()
+    {
         newCustomer();
         setVisible(true);
+        submit.addActionListener((event) -> customeraddaction (this));
     }
     
-    public JPanel newCustomer() {
-        
+    public JPanel newCustomer() 
+    {    
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -122,7 +123,6 @@ public class NewCustomer extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
-        //submit.addActionListener((event) -> customeraddaction ());
         add(panel, BorderLayout.CENTER);
         setTitle("Enter customer details here !");
         pack();
@@ -130,7 +130,8 @@ public class NewCustomer extends JFrame{
         return panel;
     }
        
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         var login = new NewCustomer();
         login.initUI();
     }
@@ -142,31 +143,30 @@ public class NewCustomer extends JFrame{
         String Address = address_label_text.getText();
         String Number =  number_label_text.getText();
         String Email =  email_label_text.getText();
-        
      
         String query = String.format("INSERT INTO customer (name,number, address,email) VALUES ('%s','%s','%s','%s');", Name, Number, Address, Email);
         System.out.println(query);
-        try{
-        if (sql.updateQuery(query)!=0) {
-            //message.setText(" Hello " + userName+ "");
-            JOptionPane.showMessageDialog(jframe, "Customer added"); 
-            return true;
-        } 
-        else {
-            JOptionPane.showMessageDialog(this, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
-            //System.out.println("False");
-            //message.setText(" Invalid user.. ");
+        try
+        {
+            if (sql.updateQuery(query)!=0) 
+            {
+                //message.setText(" Hello " + userName+ "");
+                JOptionPane.showMessageDialog(jframe, "Customer added"); 
+                return true;
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(jframe, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+                //System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
+        }
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            JOptionPane.showMessageDialog(jframe, "ERROR!!","Error",JOptionPane.ERROR_MESSAGE); 
             return false;
         }
-       }
-        catch ( Exception e ) {
-        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        return false;
-        
     }
-
-}}
-    
-
-
-
+}
