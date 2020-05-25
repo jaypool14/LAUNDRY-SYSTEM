@@ -18,6 +18,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.sql.ResultSet;
+import java.util.regex.*;
+
 public class NewEmployee extends JFrame
 {   
     JPanel panel;
@@ -150,7 +153,37 @@ public class NewEmployee extends JFrame
        String Number = number_label2_text.getText();
        String Email = email_label2_text.getText();
        String Designation= (String)desiglist.getSelectedItem();
-     
+       
+       boolean num_check = Pattern.matches("[0-9]{10}", Number);
+       boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
+       if (num_check == false)
+       {
+           JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again","Error",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }    
+       if (mail_check == false)
+       {
+           JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again","Error",JOptionPane.ERROR_MESSAGE);
+           return false;
+       }
+       
+       String check_query = String.format("SELECT * FROM EMPLOYEE WHERE NAME='%s' AND EMAIL='%s';", Name, Email);
+       try
+       {
+           ResultSet rs =sql.execute(check_query);
+           if (rs.next()) {
+               //message.setText(" Hello " + userName+ "");
+               rs.close();
+               JOptionPane.showMessageDialog(jframe, "Existing Employee","Error",JOptionPane.ERROR_MESSAGE); 
+               return false;
+           } 
+       }
+       catch ( Exception e ) 
+       {
+           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+           return false;
+       }
+        
        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');", Name, Number, Email,"1120",Designation);
        System.out.println(query);
        try

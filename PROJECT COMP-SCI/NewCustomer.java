@@ -17,6 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.sql.ResultSet;
+import java.util.regex.*;
 
 public class NewCustomer extends JFrame
 {
@@ -143,7 +145,35 @@ public class NewCustomer extends JFrame
         String Address = address_label_text.getText();
         String Number =  number_label_text.getText();
         String Email =  email_label_text.getText();
-     
+        boolean num_check = Pattern.matches("[0-9]{10}", Number);
+        boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
+        if (num_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+        if (mail_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+
+        String check_query = String.format("SELECT * FROM customer WHERE name='%s' AND email='%s';", Name, Email);
+        try
+        {
+            ResultSet rs =sql.execute(check_query);
+            if (rs.next()) {
+                //message.setText(" Hello " + userName+ "");
+                rs.close();
+                JOptionPane.showMessageDialog(jframe, "Existing Customer","Error",JOptionPane.ERROR_MESSAGE); 
+                return false;
+            } 
+        }
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return false;
+        }
         String query = String.format("INSERT INTO customer (name,number, address,email) VALUES ('%s','%s','%s','%s');", Name, Number, Address, Email);
         System.out.println(query);
         try

@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.regex.*;
 
 public class Login extends JFrame{
 
@@ -99,6 +100,11 @@ public class Login extends JFrame{
         SQL sql = new SQL();
         String userName = userName_text.getText();
         String password = password_text.getText();
+        boolean userName_check = Pattern.matches("[a-zA-z0-9]+", userName);
+        boolean password_check = Pattern.matches("[a-zA-Z0-9!@#$%^&]+", password);
+        if (userName_check == false || password_check == false)
+            return false;
+            
         String query = "SELECT * FROM login WHERE username='"+userName+"' AND password='"+password+"'";
         System.out.println(query);
         try{
@@ -114,7 +120,7 @@ public class Login extends JFrame{
             //message.setText(" Invalid user.. ");
             return false;
         }
-       }
+        }
         catch ( Exception e ) {
         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         return false;
