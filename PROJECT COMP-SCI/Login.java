@@ -128,7 +128,3 @@ public class Login extends JFrame{
         login.initUI();
     }
 }
-    
-    
-
-

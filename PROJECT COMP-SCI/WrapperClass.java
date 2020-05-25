@@ -123,13 +123,18 @@ import javax.swing.Box;
     public void newcustomer_action(){
         NewCustomer new_customer = new NewCustomer();
         JPanel newcustomer = new_customer.newCustomer();
-        //new_customer.submit.addActionListener((event) -> login_action());
+        new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
         //constraints.anchor = GridBagConstraints.SOUTH;
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
         details_panel.add(newcustomer);
         details_panel.setVisible(true);
         
+    }
+    
+    public void show_message(String message, int type)
+    {
+        JOptionPane.showMessageDialog(this, "Customer Added."); 
     }
 
     public static void main(String[] args) {
