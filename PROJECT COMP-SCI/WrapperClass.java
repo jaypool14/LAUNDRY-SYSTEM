@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -37,48 +35,11 @@ import javax.swing.Box;
         main_menu = new MainMenu();
         menuBar = main_menu.createMenuBar();
         jpanel = login.createLogin();
+        set_background();
         login.submit.addActionListener((event) -> login_action());
         main_menu.customer_sub.addActionListener((event) -> newcustomer_action());
-        
-        // ######## Setting background
-        String BACKHGROUND_IMAGE_URL = ".\\background3.jpeg";
-        final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
-        } 
-        catch (IOException e) {
-        e.printStackTrace();
-        }
-        Image dimg = img.getScaledInstance(820, 460, Image.SCALE_SMOOTH);
-        ImageIcon imageIcon = new ImageIcon(dimg);
-        mainPanel = new JLabel(imageIcon) 
-        {
-            @Override
-            public Dimension getPreferredSize() {
-                Dimension size = super.getPreferredSize();
-                Dimension lmPrefSize = getLayout().preferredLayoutSize(this);
-                size.width = Math.max(size.width, lmPrefSize.width);
-                size.height = Math.max(size.height, lmPrefSize.height);
-                return size;
-            }
-        };
-        // ##############
-        mainPanel.setLayout(new GridBagLayout());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
-     
-        //setLayout(new GridBagLayout());
-        
-        //constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.weightx = 1.0;
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridwidth = GridBagConstraints.REMAINDER;
-        // Let's put a filler bottom component that will push the rest to the top
-        constraints.weighty = 1.0;
-        mainPanel.add(Box.createGlue(), constraints);
-    
-           
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.gridx = 0;
         constraints.gridy = 0;   
@@ -132,6 +93,39 @@ import javax.swing.Box;
         
     }
     
+    public void set_background()
+    {
+        // ######## Setting background
+        String BACKHGROUND_IMAGE_URL = ".\\background3.jpeg";
+        final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
+        } 
+        catch (IOException e) {
+        e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(820, 460, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        mainPanel = new JLabel(imageIcon) 
+        {
+            @Override
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                Dimension lmPrefSize = getLayout().preferredLayoutSize(this);
+                size.width = Math.max(size.width, lmPrefSize.width);
+                size.height = Math.max(size.height, lmPrefSize.height);
+                return size;
+            }
+        };
+        mainPanel.setLayout(new GridBagLayout());
+        constraints.weightx = 1.0;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        // Let's put a filler bottom component that will push the rest to the top
+        constraints.weighty = 1.0;
+        mainPanel.add(Box.createGlue(), constraints);
+    }
     public void show_message(String message, int type)
     {
         JOptionPane.showMessageDialog(this, "Customer Added."); 

@@ -136,7 +136,8 @@ public class NewCustomer extends JFrame{
     }
     
     public boolean customeraddaction (JFrame jframe)
-    {SQL sql = new SQL();
+    {
+        SQL sql = new SQL();
         String Name = name_label_text.getText();
         String Address = address_label_text.getText();
         String Number =  number_label_text.getText();
@@ -152,7 +153,7 @@ public class NewCustomer extends JFrame{
             return true;
         } 
         else {
-            JOptionPane.showMessageDialog(this, "Invalid detaills","Error",JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(this, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
             //System.out.println("False");
             //message.setText(" Invalid user.. ");
             return false;
