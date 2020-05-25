@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 public class Login extends JFrame{
 
@@ -101,11 +102,14 @@ public class Login extends JFrame{
         String query = "SELECT * FROM login WHERE username='"+userName+"' AND password='"+password+"'";
         System.out.println(query);
         try{
-        if (sql.execute(query).next()) {
+            ResultSet rs =sql.execute(query);
+        if (rs.next()) {
             //message.setText(" Hello " + userName+ "");
+            rs.close();
             return true;
         } 
         else {
+            rs.close();
             System.out.println("False");
             //message.setText(" Invalid user.. ");
             return false;
@@ -124,7 +128,3 @@ public class Login extends JFrame{
         login.initUI();
     }
 }
-    
-    
-
-

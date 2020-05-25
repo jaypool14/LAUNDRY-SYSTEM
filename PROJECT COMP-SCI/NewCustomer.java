@@ -122,7 +122,7 @@ public class NewCustomer extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
-        submit.addActionListener((event) -> customeraddaction ());
+        //submit.addActionListener((event) -> customeraddaction ());
         add(panel, BorderLayout.CENTER);
         setTitle("Enter customer details here !");
         pack();
@@ -135,8 +135,9 @@ public class NewCustomer extends JFrame{
         login.initUI();
     }
     
-    public boolean customeraddaction ()
-    {SQL sql = new SQL();
+    public boolean customeraddaction (JFrame jframe)
+    {
+        SQL sql = new SQL();
         String Name = name_label_text.getText();
         String Address = address_label_text.getText();
         String Number =  number_label_text.getText();
@@ -146,12 +147,14 @@ public class NewCustomer extends JFrame{
         String query = String.format("INSERT INTO customer (name,number, address,email) VALUES ('%s','%s','%s','%s');", Name, Number, Address, Email);
         System.out.println(query);
         try{
-        if (sql.updateQuery(query)==0) {
+        if (sql.updateQuery(query)!=0) {
             //message.setText(" Hello " + userName+ "");
+            JOptionPane.showMessageDialog(jframe, "Customer added"); 
             return true;
         } 
         else {
-            System.out.println("False");
+            JOptionPane.showMessageDialog(this, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+            //System.out.println("False");
             //message.setText(" Invalid user.. ");
             return false;
         }
