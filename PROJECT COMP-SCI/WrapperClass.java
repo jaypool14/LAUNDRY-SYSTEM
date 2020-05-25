@@ -38,6 +38,7 @@ import javax.swing.Box;
         set_background();
         login.submit.addActionListener((event) -> login_action());
         main_menu.customer_sub.addActionListener((event) -> newcustomer_action());
+        main_menu.new_employee.addActionListener((event) -> newemployee_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
         constraints.anchor = GridBagConstraints.CENTER;
@@ -85,10 +86,23 @@ import javax.swing.Box;
         NewCustomer new_customer = new NewCustomer();
         JPanel newcustomer = new_customer.newCustomer();
         new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
+      
         //constraints.anchor = GridBagConstraints.SOUTH;
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
         details_panel.add(newcustomer);
+        details_panel.setVisible(true);
+        
+    }
+     public void newemployee_action(){
+        NewEmployee new_employee = new NewEmployee();
+        JPanel newemployee = new_employee.newEmployee();
+        new_employee.submit.addActionListener((event) -> new_employee.employeeaddaction());
+      
+        //constraints.anchor = GridBagConstraints.SOUTH;
+        //constraints.gridx = 0;
+        //constraints.gridy = 0;   
+        details_panel.add(newemployee);
         details_panel.setVisible(true);
         
     }

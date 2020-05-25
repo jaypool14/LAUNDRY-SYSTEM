@@ -156,11 +156,12 @@ public JPanel newEmployee() {
         String Email =  email_label2_text.getText();
         String Designation= (String)desiglist.getSelectedItem();
      
-        String query = String.format("INSERT INTO employee (name,number,email,joindate,designation) VALUES ('%s','%s','%s','%s');", Name, Number, Email,Designation);
+        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');", Name, Number, Email,"1120",Designation);
         System.out.println(query);
         try{
-        if (sql.updateQuery(query)==0) {
+        if (sql.updateQuery(query)!=0) {
             //message.setText(" Hello " + userName+ "");
+             JOptionPane.showMessageDialog(this, "Employee added"); 
             return true;
         } 
         else {
