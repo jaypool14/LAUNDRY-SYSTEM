@@ -1,41 +1,46 @@
 import java.sql.*;
 
 public class SQL {
-    public static ResultSet execute(String query)
+    static Connection c = null;
+    static Statement stmt = null;
+    static ResultSet rs = null;
+
+    public static ResultSet execute(String query,boolean... open)
     {
-       Connection c = null;
-       Statement stmt = null;
-       ResultSet rs = null;
-       try {
-        //Class.forName("org.sqlite.JDBC");
+        boolean open_flag = (open.length >= 1) ? open[0] : false;
+        try 
+        {
+            //Class.forName("org.sqlite.JDBC");
       
-       c = DriverManager.getConnection("jdbc:sqlite:.\\PRACTICE.db");
-       c.setAutoCommit(false);
-       System.out.println("Opened database successfully");
-       stmt = c.createStatement();
-       rs = stmt.executeQuery(query);
-       /*while ( rs.next() ) {
-         String  username = rs.getString("username");
-         String  password = rs.getString("password");  
-         System.out.println( username );
-         System.out.println(password);
-         System.out.println();
-       }*/
-       
-       //stmt.close();
-       //c.close();
-       //if (ret==0)
-      // stmt.close();
-       c.close();
-       return rs;
-       //else
-       //return null;
-       } 
-       catch ( Exception e ) {
-       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-       System.exit(0);
-       return null;
-       }
+            c = DriverManager.getConnection("jdbc:sqlite:.\\PRACTICE.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+            stmt = c.createStatement();
+            rs = stmt.executeQuery(query);
+            /*while ( rs.next() ) {
+            /*    String  username = rs.getString("username");
+             * String  password = rs.getString("password");  
+             * System.out.println( username );
+             * System.out.println(password);
+             * System.out.println();
+            }*/
+            
+            //stmt.close();
+            //c.close();
+            //if (ret==0)
+            // stmt.close();
+            if (open_flag==false)
+                c.close();
+            return rs;
+            //else
+            //return null;
+        } 
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+            return null;
+        }
     }
     
     public static int updateQuery(String query)

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=AutoSuggest
 comment1.params=
-comment1.target=AutoSuggest()
+comment1.target=javax.swing.JComboBox\ create_box()
 comment2.params=e
 comment2.target=void\ keyTyped(java.awt.event.KeyEvent)
 comment3.params=

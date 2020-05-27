@@ -17,7 +17,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.JSeparator;
 import java.sql.ResultSet;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
 import java.util.regex.*;
 
 public class NewCustomer extends JFrame
@@ -46,6 +49,8 @@ public class NewCustomer extends JFrame
         title_label.setText("CREATE NEW CUSTOMER");
         title_label.setForeground(Color.WHITE);
         title_label.setFont(new Font("Century",Font.BOLD,40));
+        JSeparator x = new JSeparator(SwingConstants.HORIZONTAL);
+        x.setPreferredSize(new Dimension(400,30));
         
         // NAME
         name_label = new JLabel();
@@ -121,6 +126,8 @@ public class NewCustomer extends JFrame
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(title_label,constraints);
+        constraints.gridy = 1;
+        //panel.add(x, constraints);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

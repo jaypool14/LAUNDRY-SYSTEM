@@ -54,15 +54,18 @@ public class WrapperClass extends JFrame
         mainPanel.add(menuBar,constraints);
     
         constraints.anchor = GridBagConstraints.NORTH;
-        constraints.fill = GridBagConstraints.HORIZONTAL;    
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.fill = GridBagConstraints.VERTICAL;
         constraints.gridx = 1;
         constraints.gridy = 1;   
         mainPanel.add(details_panel,constraints);
     
-        setSize(500, 500);
+        setSize(800, 600);
     
         //asetUndecorated(true);
         menuBar.setVisible(false);
+        details_panel.setLayout(new GridBagLayout());
+        details_panel.setPreferredSize(new Dimension(300,500));
         details_panel.setVisible(false);
         details_panel.setOpaque(false);
         setTitle("LAUNDRY MANAGEMENT SYSTEM");
@@ -90,6 +93,30 @@ public class WrapperClass extends JFrame
         new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
   
         //constraints.anchor = GridBagConstraints.SOUTH;
+        // constraints.gridx = 0;
+        //constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+        
+        details_panel.removeAll(); 
+        details_panel.add(newcustomer);
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
+    }
+    
+    public void viewcustomer_action()
+    {
+        NewCustomer new_customer = new NewCustomer();
+        JPanel newcustomer = new_customer.newCustomer();
+        new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
+  
+        //constraints.anchor = GridBagConstraints.SOUTH;
+        //constraints.gridx = 0;
+        //constraints.gridy = 0;
+        //constraints.anchor = GridBagConstraints.NORTH;
+        //constraints.fill = GridBagConstraints.HORIZONTAL;  
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
         details_panel.removeAll(); 
@@ -106,8 +133,12 @@ public class WrapperClass extends JFrame
         //constraints.anchor = GridBagConstraints.SOUTH;
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
+        constraints.anchor = GridBagConstraints.NORTH;
+        //constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
         details_panel.removeAll();
-        details_panel.add(newemployee);
+        details_panel.add(newemployee, constraints);
         details_panel.updateUI();
         details_panel.setVisible(true);
     

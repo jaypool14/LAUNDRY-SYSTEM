@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=SQL
-comment1.params=query
-comment1.target=java.sql.ResultSet\ execute(java.lang.String)
+comment1.params=query\ open
+comment1.target=java.sql.ResultSet\ execute(java.lang.String,\ boolean[])
 comment2.params=query
 comment2.target=int\ updateQuery(java.lang.String)
 comment3.params=args
