@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=AutoSuggest
+comment1.params=
+comment1.target=AutoSuggest()
+comment2.params=e
+comment2.target=void\ keyTyped(java.awt.event.KeyEvent)
+comment3.params=
+comment3.target=void\ run()
+comment4.params=e
+comment4.target=void\ keyPressed(java.awt.event.KeyEvent)
+comment5.params=mdl\ str
+comment5.target=void\ setModel(javax.swing.DefaultComboBoxModel,\ java.lang.String)
+comment6.params=list\ text
+comment6.target=javax.swing.DefaultComboBoxModel\ getSuggestedModel(java.util.List,\ java.lang.String)
+comment7.params=args
+comment7.target=void\ main(java.lang.String[])
+numComments=8
