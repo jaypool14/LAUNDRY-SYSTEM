@@ -42,41 +42,39 @@ public class ViewCustomer extends JFrame
     {
         String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText();      
         System.out.println(typedText);
-        String[] Details=typedText.split(":");
+        String[] Details=typedText.split(" : ");
         SQL sql=new SQL();
-   
-        String query = String.format("SELECT * FROM employee WHERE name='%s' AND email='%s'",Details[0].strip(),Details[1].strip());
+        String query = String.format("SELECT * FROM customer WHERE name='%s' AND email='%s'",Details[0],Details[1]);
         System.out.println(query);
+        System.out.println(Details[0]+":"+Details[1]);
         try{
             ResultSet rs =sql.execute(query,true);
-        if (rs.next()) {
-   
-            String name = rs.getString("name");
-            name_label_text.setText(name);
-            String number = rs.getString("number");
-            name_label_text.setText(number);
-            String address = rs.getString("address");
-            name_label_text.setText(address);
-            String email = rs.getString("email");
-            name_label_text.setText(email);
-            
-            
-            sql.c.close();
-            //message.setText(" Hello " + userName+ "");
-            rs.close();
-            return true;
-        } 
-        else {
-            rs.close();
-            System.out.println("False");
-            //message.setText(" Invalid user.. ");
-            return false;
-        }
+            if (rs.next()) {
+                String name = rs.getString("name");
+                name_label_text.setText(name);
+                String number = rs.getString("number");
+                number_label_text.setText(number);
+                String address = rs.getString("address");
+                address_label_text.setText(address);
+                String email = rs.getString("email");
+                email_label_text.setText(email);
+
+                sql.c.close();
+                //message.setText(" Hello " + userName+ "");
+                rs.close();
+                return true;
+            } 
+            else {
+                rs.close();
+                System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
         }
         catch ( Exception e ) {
-        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        return false;
-       }
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return false;
+        }
     }
 
     public boolean editaction (JFrame jframe)
