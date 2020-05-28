@@ -10,7 +10,7 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub;
+    JMenuItem customer_sub, customer_sub2;
     JMenuItem new_employee;
     public void initUI() {
 
@@ -34,7 +34,7 @@ public class MainMenu extends JFrame {
         customer_menu.setMnemonic(KeyEvent.VK_F);
 
         customer_sub = new JMenuItem("ADD NEW CUSTOMER", exitIcon);
-        var customer_sub2 = new JMenuItem("VIEW CUSTOMERS", exitIcon);
+        customer_sub2 = new JMenuItem("VIEW CUSTOMERS", exitIcon);
         
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
@@ -42,7 +42,7 @@ public class MainMenu extends JFrame {
         customer_sub2.setToolTipText("CAN VIEW EXISTING CUSTOMERS");
         
         //customer_sub.addActionListener((event) -> System.exit(0));
-        customer_sub2.addActionListener((event) -> System.exit(0));
+        //customer_sub2.addActionListener((event) -> System.exit(0));
         customer_menu.add(customer_sub);
         customer_menu.addSeparator();
         customer_menu.add(customer_sub2);

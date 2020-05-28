@@ -19,7 +19,7 @@ import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.Box;
-    
+
 public class WrapperClass extends JFrame 
 {
     JMenuBar menuBar; 
@@ -29,7 +29,7 @@ public class WrapperClass extends JFrame
     JLabel mainPanel;
     JPanel details_panel = new JPanel();
     GridBagConstraints constraints = new GridBagConstraints();
-    
+
     public void get_element()
     {
         login = new Login();
@@ -39,6 +39,7 @@ public class WrapperClass extends JFrame
         set_background();
         login.submit.addActionListener((event) -> login_action());
         main_menu.customer_sub.addActionListener((event) -> newcustomer_action());
+        main_menu.customer_sub2.addActionListener((event) -> viewcustomer_action());
         main_menu.new_employee.addActionListener((event) -> newemployee_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
@@ -46,22 +47,22 @@ public class WrapperClass extends JFrame
         constraints.gridx = 0;
         constraints.gridy = 0;   
         mainPanel.add(jpanel,constraints);
-        
+
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;  
         constraints.gridx = 0;
         constraints.gridy = 0;   
         mainPanel.add(menuBar,constraints);
-    
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.gridx = 1;
+
+        //constraints.anchor = GridBagConstraints.WEST;
+        //constraints.fill = GridBagConstraints.HORIZONTAL;
+        //constraints.fill = GridBagConstraints.VERTICAL;
+        constraints.gridx = 0;
         constraints.gridy = 1;   
         mainPanel.add(details_panel,constraints);
-    
+
         setSize(800, 600);
-    
+
         //asetUndecorated(true);
         menuBar.setVisible(false);
         details_panel.setLayout(new GridBagLayout());
@@ -91,7 +92,7 @@ public class WrapperClass extends JFrame
         NewCustomer new_customer = new NewCustomer();
         JPanel newcustomer = new_customer.newCustomer();
         new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
-  
+
         //constraints.anchor = GridBagConstraints.SOUTH;
         // constraints.gridx = 0;
         //constraints.gridy = 0;
@@ -99,32 +100,37 @@ public class WrapperClass extends JFrame
         constraints.fill = GridBagConstraints.HORIZONTAL;  
         constraints.gridx = 0;
         constraints.gridy = 0;   
-        
+
         details_panel.removeAll(); 
-        details_panel.add(newcustomer);
+        details_panel.add(newcustomer,constraints);
         details_panel.updateUI();
         details_panel.setVisible(true); 
     }
-    
+
     public void viewcustomer_action()
     {
-        NewCustomer new_customer = new NewCustomer();
-        JPanel newcustomer = new_customer.newCustomer();
-        new_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
-  
+        ViewCustomer view_customer = new ViewCustomer();
+        JPanel viewcustomer = view_customer.viewCustomer();
+        view_customer.search.addActionListener((event) -> view_customer.searchcustomeraction (this));
+        view_customer.edit.addActionListener((event) -> view_customer.editaction (this));
+        view_customer.delete.addActionListener((event) -> view_customer.deleteaction (this));
+        view_customer.save.addActionListener((event) -> view_customer.saveaction (this));
+        //view_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
+
         //constraints.anchor = GridBagConstraints.SOUTH;
-        //constraints.gridx = 0;
+        // constraints.gridx = 0;
         //constraints.gridy = 0;
-        //constraints.anchor = GridBagConstraints.NORTH;
-        //constraints.fill = GridBagConstraints.HORIZONTAL;  
-        //constraints.gridx = 0;
-        //constraints.gridy = 0;   
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+
         details_panel.removeAll(); 
-        details_panel.add(newcustomer);
+        details_panel.add(viewcustomer,constraints);
         details_panel.updateUI();
         details_panel.setVisible(true); 
     }
-    
+
     public void newemployee_action()
     {
         NewEmployee new_employee = new NewEmployee();
@@ -134,14 +140,14 @@ public class WrapperClass extends JFrame
         //constraints.gridx = 0;
         //constraints.gridy = 0;   
         constraints.anchor = GridBagConstraints.NORTH;
-        //constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.fill = GridBagConstraints.HORIZONTAL;  
         constraints.gridx = 0;
         constraints.gridy = 0;   
         details_panel.removeAll();
         details_panel.add(newemployee, constraints);
         details_panel.updateUI();
         details_panel.setVisible(true);
-    
+
     }
 
     public void set_background()
@@ -156,7 +162,7 @@ public class WrapperClass extends JFrame
         catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(820, 460, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(1025, 575, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         mainPanel = new JLabel(imageIcon) 
         {
@@ -180,7 +186,7 @@ public class WrapperClass extends JFrame
 
     public static void main(String[] args) 
     {
-          var wrapper = new WrapperClass();
-          wrapper.get_element();
+        var wrapper = new WrapperClass();
+        wrapper.get_element();
     }
 }

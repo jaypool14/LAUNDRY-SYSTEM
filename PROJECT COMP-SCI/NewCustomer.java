@@ -42,15 +42,13 @@ public class NewCustomer extends JFrame
     {    
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.insets = new Insets(20, 20, 20, 20);
         
         //TITLE
         title_label = new JLabel();
         title_label.setText("CREATE NEW CUSTOMER");
         title_label.setForeground(Color.WHITE);
         title_label.setFont(new Font("Century",Font.BOLD,40));
-        JSeparator x = new JSeparator(SwingConstants.HORIZONTAL);
-        x.setPreferredSize(new Dimension(400,30));
         
         // NAME
         name_label = new JLabel();
@@ -83,7 +81,8 @@ public class NewCustomer extends JFrame
         // SubmitButton
         submit = new JButton("ADD CUSTOMER");
         
-        constraints.anchor = GridBagConstraints.WEST;
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         
         constraints.gridx = 0;
         constraints.gridy = 4;
@@ -115,19 +114,23 @@ public class NewCustomer extends JFrame
 
         constraints.gridx = 1;
         constraints.gridy = 12;
-        constraints.gridwidth = 2;
+        //
         //constraints.anchor = GridBagConstraints.NORTH;
         panel.add(submit,constraints);
 
         
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.weightx = 0;
+        //constraints.anchor = GridBagConstraints.NORTH;
+        //constraints.weightx = 0;
         //constraints.ipadx = 4;
+        constraints.gridwidth = 2;
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(title_label,constraints);
         constraints.gridy = 1;
-        //panel.add(x, constraints);
+        constraints.insets = new Insets(5, 5, 5, 5);
+        JSeparator s = new JSeparator();  
+        //panel.add(s,constraints);
+        panel.add(s, constraints);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.sql.ResultSet;
+import javax.swing.JSeparator;
 import java.util.regex.*;
 
 public class ViewCustomer extends JFrame
@@ -59,7 +60,12 @@ public class ViewCustomer extends JFrame
                 address_label_text.setText(address);
                 String email = rs.getString("email");
                 email_label_text.setText(email);
-
+                name_label_text.setEnabled(false);
+                number_label_text.setEnabled(false);
+                address_label_text.setEnabled(false);
+                email_label_text.setEnabled(false);
+                save.setVisible(false);
+                edit.setVisible(true);
                 sql.c.close();
                 //message.setText(" Hello " + userName+ "");
                 rs.close();
@@ -76,21 +82,24 @@ public class ViewCustomer extends JFrame
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
+
     }
 
     public boolean editaction (JFrame jframe)
     {
-         name_label_text.setEnabled(true);
-         number_label_text.setEnabled(true);
-         address_label_text.setEnabled(true);
-         email_label_text.setEnabled(true);
-         return false;
+        name_label_text.setEnabled(true);
+        number_label_text.setEnabled(true);
+        address_label_text.setEnabled(true);
+        email_label_text.setEnabled(true);
+        edit.setVisible(false);
+        save.setVisible(true);
+        return false;
 
     }
-    
+
     public boolean saveaction(JFrame jfame)
     {
-        save.setVisible(true);
+
         return true;
     }
 
@@ -102,7 +111,7 @@ public class ViewCustomer extends JFrame
     {    
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.insets = new Insets(20, 20, 20, 20);
 
         //TITLE
         title_label = new JLabel();
@@ -154,19 +163,17 @@ public class ViewCustomer extends JFrame
         edit = new JButton(" EDIT ");
         delete = new JButton("DELETE");
         save = new JButton("SAVE");
-        //save.setVisible(false);
+        save.setVisible(false);
 
         constraints.anchor = GridBagConstraints.WEST;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 4;
         panel.add(search,constraints);
 
         constraints.gridx = 1;
-        constraints.weightx = 2;
         panel.add(search_box,constraints);
-        constraints.weightx = 1;
-        // constraints.gridx = 2;
-        // panel.add(search,constraints);
+        constraints.gridwidth = 1;
 
         constraints.gridx = 0;
         constraints.gridy = 6;
@@ -174,6 +181,7 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(name_label_text,constraints);
+        name_label_text.setDisabledTextColor(Color.BLUE);
         name_label_text.setEnabled(false);
 
         constraints.gridx = 0;
@@ -182,6 +190,7 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(number_label_text,constraints);
+        number_label_text.setDisabledTextColor(Color.BLUE);
         number_label_text.setEnabled(false);
         constraints.gridx = 0;
         constraints.gridy = 10;
@@ -189,6 +198,7 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(address_label_text,constraints);
+        address_label_text.setDisabledTextColor(Color.BLUE);
         address_label_text.setEnabled(false);
         constraints.gridx = 0;
         constraints.gridy = 12;
@@ -196,25 +206,30 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(email_label_text,constraints);
+        email_label_text.setDisabledTextColor(Color.BLUE);
         email_label_text.setEnabled(false);
 
         constraints.gridx = 1;
         constraints.gridy = 14;
-        constraints.gridwidth = 2;
-        //constraints.weightx = .5;
+
+        constraints.insets = new Insets(5, 20, 5, 20);
         panel.add(edit,constraints);
+        constraints.gridx = 1;
         constraints.gridy = 16;
         panel.add(save,constraints);
         constraints.gridy = 18;
         constraints.gridx = 1;
         panel.add(delete,constraints);
 
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.weightx = 0;
-        //constraints.ipadx = 4;
+        constraints.gridwidth = 2;
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(title_label,constraints);
+        constraints.gridy = 1;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        JSeparator s = new JSeparator();  
+        //panel.add(s,constraints);
+        panel.add(s, constraints);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
