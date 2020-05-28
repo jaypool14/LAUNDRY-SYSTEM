@@ -69,8 +69,9 @@ public class ViewCustomer extends JFrame
 
         //search_label.setFont(new Font("Century",Font.BOLD,20));
         //search_label_text = new JTextField(20);
+        String check_query = "SELECT * FROM customer WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
         AutoSuggest box = new AutoSuggest();
-        search_box = box.create_box();
+        search_box = box.create_box(check_query);
         
         // NAME
         name_label = new JLabel();

@@ -29,6 +29,7 @@ public class ViewEmployee extends JFrame
     JPasswordField password_text;
     JButton search,edit,delete;
     JComboBox desiglist;
+    JComboBox search_box;
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
       public void initUI()
     {
@@ -62,7 +63,9 @@ public class ViewEmployee extends JFrame
         title_label2.setFont(new Font("Century",Font.BOLD,40));
         
          
-        search_label_text = new JTextField(20);
+        String check_query = "SELECT * FROM EMPLOYEE WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
+        AutoSuggest box = new AutoSuggest();
+        search_box = box.create_box(check_query);
         
         // NAME
         name_label2 = new JLabel();
@@ -100,9 +103,6 @@ public class ViewEmployee extends JFrame
         designation_label.setForeground(Color.WHITE);
         designation_label.setFont(new Font("Century",Font.BOLD,20));
      
-        
-       
-
         // SubmitButton
         search = new JButton("SEARCH");
         edit = new JButton(" EDIT ");
@@ -114,7 +114,7 @@ public class ViewEmployee extends JFrame
         panel.add(search,constraints);
         
         constraints.gridx = 1;
-        panel.add(search_label_text,constraints);
+        panel.add(search_box,constraints);
         
            
   

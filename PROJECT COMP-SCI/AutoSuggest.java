@@ -10,7 +10,7 @@ public class AutoSuggest extends JPanel{
     Vector<String> v = new Vector<String>();
     String[] countries = {};
 
-    public JComboBox create_box() {
+    public JComboBox create_box(String check_query) {
         //super(new BorderLayout());
         GetUsers users = new GetUsers();
         combo.setEditable(true);
@@ -28,7 +28,11 @@ public class AutoSuggest extends JPanel{
                                     setModel(new DefaultComboBoxModel(v), "");
                                 }
                                 else if (text.length()>2){
-                                    countries = users.getusers_list(text);
+                                    countries = users.getusers_list(text, check_query);
+                                    if (countries.length==0)
+                                    {
+                                        
+                                    }
                                     System.out.println(Arrays.toString(countries));
                                     v.clear();
                                     for(int i=0;i<countries.length;i++){
@@ -92,7 +96,8 @@ public class AutoSuggest extends JPanel{
     private static DefaultComboBoxModel getSuggestedModel(java.util.List<String> list, String text) {
         DefaultComboBoxModel m = new DefaultComboBoxModel();
         for(String s: list) {
-            if(s.toLowerCase().contains(text)) m.addElement(s);
+            //if(s.toLowerCase().contains(text)) 
+            m.addElement(s);
         }
         return m;
     }
@@ -102,7 +107,8 @@ public class AutoSuggest extends JPanel{
         frame.setPreferredSize(new Dimension(300, 150));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         AutoSuggest box = new AutoSuggest();
-        frame.add(box.create_box());
+        String check_query = "SELECT * FROM customer WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
+        frame.add(box.create_box(check_query));
         //frame.pack();
         //frame.setLocationRelativeTo(null);
         frame.setVisible(true);
