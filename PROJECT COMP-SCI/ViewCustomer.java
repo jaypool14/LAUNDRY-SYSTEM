@@ -39,11 +39,49 @@ public class ViewCustomer extends JFrame
     }
 
     public boolean searchcustomeraction (JFrame jframe)
-    {return false;
+    {
+        String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText();      
+        System.out.println(typedText);
+        String[] Details=typedText.split(":");
+        SQL sql=new SQL();
+   
+        String query = String.format("SELECT * FROM employee WHERE name='%s' AND email='%s'",Details[0].strip(),Details[1].strip());
+        System.out.println(query);
+        try{
+            ResultSet rs =sql.execute(query,true);
+        if (rs.next()) {
+   
+            String name = rs.getString("name");
+            name_label_text.setText(name);
+            String number = rs.getString("number");
+            name_label_text.setText(number);
+            String address = rs.getString("address");
+            name_label_text.setText(address);
+            String email = rs.getString("email");
+            name_label_text.setText(email);
+            
+            
+            sql.c.close();
+            //message.setText(" Hello " + userName+ "");
+            rs.close();
+            return true;
+        } 
+        else {
+            rs.close();
+            System.out.println("False");
+            //message.setText(" Invalid user.. ");
+            return false;
+        }
+        }
+        catch ( Exception e ) {
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        return false;
+       }
     }
 
     public boolean editaction (JFrame jframe)
     {return false;
+
     }
 
     public boolean deleteaction (JFrame jframe)
@@ -72,7 +110,7 @@ public class ViewCustomer extends JFrame
         String check_query = "SELECT * FROM customer WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
         AutoSuggest box = new AutoSuggest();
         search_box = box.create_box(check_query);
-        
+
         // NAME
         name_label = new JLabel();
         name_label.setText("NAME :");
@@ -101,7 +139,6 @@ public class ViewCustomer extends JFrame
         email_label.setFont(new Font("Century",Font.BOLD,20));
         email_label_text = new JTextField(20);
 
-
         // SubmitButton
         search = new JButton("SEARCH");
         edit = new JButton(" EDIT ");
@@ -125,6 +162,7 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(name_label_text,constraints);
+        name_label_text.setEnabled(false);
 
         constraints.gridx = 0;
         constraints.gridy = 8;
@@ -132,21 +170,21 @@ public class ViewCustomer extends JFrame
 
         constraints.gridx = 1;
         panel.add(number_label_text,constraints);
-
+        number_label_text.setEnabled(false);
         constraints.gridx = 0;
         constraints.gridy = 10;
         panel.add(address_label,constraints);
 
         constraints.gridx = 1;
         panel.add(address_label_text,constraints);
-
+        address_label_text.setEnabled(false);
         constraints.gridx = 0;
         constraints.gridy = 12;
         panel.add(email_label,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label_text,constraints);
-
+        email_label_text.setEnabled(false);
 
         constraints.gridx = 1;
         constraints.gridy = 14;

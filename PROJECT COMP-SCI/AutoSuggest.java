@@ -8,7 +8,7 @@ public class AutoSuggest extends JPanel{
     JTextField tf;
     JComboBox combo = new JComboBox();
     Vector<String> v = new Vector<String>();
-    String[] countries = {};
+    String[] person = {};
 
     public JComboBox create_box(String check_query) {
         //super(new BorderLayout());
@@ -28,15 +28,15 @@ public class AutoSuggest extends JPanel{
                                     setModel(new DefaultComboBoxModel(v), "");
                                 }
                                 else if (text.length()>2){
-                                    countries = users.getusers_list(text, check_query);
-                                    if (countries.length==0)
+                                    person = users.getusers_list(text, check_query);
+                                    if (person.length==0)
                                     {
                                         
                                     }
-                                    System.out.println(Arrays.toString(countries));
+                                    System.out.println(Arrays.toString(person));
                                     v.clear();
-                                    for(int i=0;i<countries.length;i++){
-                                        v.addElement(countries[i]);
+                                    for(int i=0;i<person.length;i++){
+                                        v.addElement(person[i]);
                                     }
                                     DefaultComboBoxModel m = getSuggestedModel(v, text);
                                     if(m.getSize()==0 || hide_flag) {
