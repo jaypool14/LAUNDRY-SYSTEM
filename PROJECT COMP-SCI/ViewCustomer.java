@@ -27,7 +27,7 @@ public class ViewCustomer extends JFrame
     JTextField search_label_text,name_label_text,number_label_text,email_label_text;
     JTextArea address_label_text;
     JPasswordField password_text;
-    JButton search,edit,delete;
+    JButton search,edit,delete,save;
     JComboBox search_box;
     public void initUI()
     {
@@ -36,6 +36,7 @@ public class ViewCustomer extends JFrame
         search.addActionListener((event) -> searchcustomeraction (this));
         edit.addActionListener((event) -> editaction (this));
         delete.addActionListener((event) -> deleteaction (this));
+        save.addActionListener
     }
 
     public boolean searchcustomeraction (JFrame jframe)
@@ -78,7 +79,12 @@ public class ViewCustomer extends JFrame
     }
 
     public boolean editaction (JFrame jframe)
-    {return false;
+    {
+         name_label_text.setEnabled(true);
+         number_label_text.setEnabled(true);
+         address_label_text.setEnabled(true);
+         email_label_text.setEnabled(true);
+         return false;
 
     }
 
