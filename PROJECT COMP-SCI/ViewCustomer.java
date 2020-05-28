@@ -36,7 +36,7 @@ public class ViewCustomer extends JFrame
         search.addActionListener((event) -> searchcustomeraction (this));
         edit.addActionListener((event) -> editaction (this));
         delete.addActionListener((event) -> deleteaction (this));
-        save.addActionListener
+        save.addActionListener((event) -> saveaction (this));
     }
 
     public boolean searchcustomeraction (JFrame jframe)
@@ -86,6 +86,12 @@ public class ViewCustomer extends JFrame
          email_label_text.setEnabled(true);
          return false;
 
+    }
+    
+    public boolean saveaction(JFrame jfame)
+    {
+        save.setVisible(true);
+        return true;
     }
 
     public boolean deleteaction (JFrame jframe)
@@ -147,6 +153,8 @@ public class ViewCustomer extends JFrame
         search = new JButton("SEARCH");
         edit = new JButton(" EDIT ");
         delete = new JButton("DELETE");
+        save = new JButton("SAVE");
+        //save.setVisible(false);
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.gridx = 0;
@@ -193,8 +201,12 @@ public class ViewCustomer extends JFrame
         constraints.gridx = 1;
         constraints.gridy = 14;
         constraints.gridwidth = 2;
+        //constraints.weightx = .5;
         panel.add(edit,constraints);
         constraints.gridy = 16;
+        panel.add(save,constraints);
+        constraints.gridy = 18;
+        constraints.gridx = 1;
         panel.add(delete,constraints);
 
         constraints.anchor = GridBagConstraints.NORTH;
