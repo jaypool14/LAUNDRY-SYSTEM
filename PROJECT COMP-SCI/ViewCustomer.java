@@ -213,8 +213,9 @@ public class ViewCustomer extends JFrame
         constraints.gridy = 14;
 
         constraints.insets = new Insets(5, 20, 5, 20);
+        constraints.gridwidth = 2;
         panel.add(edit,constraints);
-        constraints.gridx = 1;
+        //constraints.gridx = 1;
         constraints.gridy = 16;
         panel.add(save,constraints);
         constraints.gridy = 18;

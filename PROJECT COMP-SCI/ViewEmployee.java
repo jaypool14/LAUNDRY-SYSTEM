@@ -23,12 +23,12 @@ import java.sql.ResultSet;
 import java.util.regex.*;
 
 public class ViewEmployee extends JFrame
-{ JPanel panel;
+{   JPanel panel;
     JLabel search_label,title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message;
     JTextField search_label_text,name_label2_text,number_label2_text,email_label2_text,joindate_label_text;
     JTextArea address_label_text;
     JPasswordField password_text;
-    JButton search,edit,delete;
+    JButton search,edit,delete,save;
     JComboBox desiglist;
     JComboBox search_box;
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
@@ -109,6 +109,8 @@ public class ViewEmployee extends JFrame
         search = new JButton("SEARCH");
         edit = new JButton(" EDIT ");
         delete = new JButton("DELETE");
+        save = new JButton("SAVE");
+        save.setVisible(false);
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -156,14 +158,18 @@ public class ViewEmployee extends JFrame
 
         constraints.gridx = 1;
         constraints.gridy = 14;
+
+        constraints.insets = new Insets(5, 20, 5, 20);
         constraints.gridwidth = 2;
         panel.add(edit,constraints);
         constraints.gridy = 16;
+        panel.add(save,constraints);
+        constraints.gridy = 18;
+        constraints.gridx = 1;
         panel.add(delete,constraints);
 
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.weightx = 0;
-        //constraints.ipadx = 4;
+        //constraints.anchor = GridBagConstraints.NORTH;
+        constraints.gridwidth = 2;
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(title_label2,constraints);
