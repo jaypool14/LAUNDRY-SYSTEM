@@ -104,7 +104,35 @@ public class ViewCustomer extends JFrame
     }
 
     public boolean deleteaction (JFrame jframe)
-    {return false;
+    {  int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
+        if(a==JOptionPane.YES_OPTION)
+        {     
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        
+        String name=name_label_text.getText();
+        String email=email_label_text.getText();   
+        SQL sql=new SQL();
+        String query = String.format("DELETE from customer where name='%s' and email='%s';",name,email);
+        System.out.println(query);
+        
+        try{
+            sql.updateQuery(query);
+            
+        }
+        catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return false;
+        }
+         name_label_text.setText("");
+        number_label_text.setText("");
+        address_label_text.setText("");
+        email_label_text.setText("");
+      ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+    
+        JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
+    }
+        return true;
     }
 
     public JPanel viewCustomer() 

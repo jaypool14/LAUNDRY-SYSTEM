@@ -39,14 +39,75 @@ public class ViewEmployee extends JFrame
         search.addActionListener((event) -> searchemployeeaction (this));
         edit.addActionListener((event) -> editaction (this));
         delete.addActionListener((event) -> deleteaction (this));
+        save.addActionListener((event) -> saveaction (this));
     }
 
     public boolean searchemployeeaction (JFrame jframe)
-    {return false;
+    {String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText();      
+        System.out.println(typedText);
+        String[] Details=typedText.split(" : ");
+        SQL sql=new SQL();
+        String query = String.format("SELECT * FROM EMPLOYEE WHERE name='%s' AND email='%s'",Details[0],Details[1]);
+        System.out.println(query);
+        System.out.println(Details[0]+":"+Details[1]);
+        try{
+            ResultSet rs =sql.execute(query,true);
+            if (rs.next()) {
+                String name = rs.getString("name");
+                name_label2_text.setText(name);
+                String number = rs.getString("number");
+                number_label2_text.setText(number);
+                String email = rs.getString("email");
+                email_label2_text.setText(email);
+                String joindate = rs.getString("joindate");
+                joindate_label_text.setText(joindate);
+                String designation=rs.getString("designation");
+                desiglist.setSelectedItem(designation);
+                
+                name_label2_text.setEnabled(false);
+                number_label2_text.setEnabled(false);
+                email_label2_text.setEnabled(false);
+                joindate_label_text.setEnabled(false);
+                desiglist.setEnabled(false);
+                
+                save.setVisible(false);
+                edit.setVisible(true);
+                sql.c.close();
+                //message.setText(" Hello " + userName+ "");
+                rs.close();
+                return true;
+            } 
+            else {
+                rs.close();
+                System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
+        }
+        catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return false;
+        }
+
     }
+    
 
     public boolean editaction (JFrame jframe)
-    {return false;
+    {
+        name_label2_text.setEnabled(true);
+        number_label2_text.setEnabled(true);
+        email_label2_text.setEnabled(true);
+        joindate_label_text.setEnabled(true);
+        desiglist.setEnabled(true);
+        edit.setVisible(false);
+        save.setVisible(true);
+        return false;
+    }
+    
+    public boolean saveaction(JFrame jfame)
+    {
+
+        return true;
     }
 
     public boolean deleteaction (JFrame jframe)
@@ -63,7 +124,7 @@ public class ViewEmployee extends JFrame
         desiglist.setSelectedIndex(0); 
         //TITLE
         title_label2 = new JLabel();
-        title_label2.setText("CREATE NEW EMPLOYEE");
+        title_label2.setText("MANAGE EMPLOYEES");
         title_label2.setForeground(Color.WHITE);
         title_label2.setFont(new Font("Century",Font.BOLD,40));
 

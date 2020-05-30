@@ -41,6 +41,7 @@ public class WrapperClass extends JFrame
         main_menu.customer_sub.addActionListener((event) -> newcustomer_action());
         main_menu.customer_sub2.addActionListener((event) -> viewcustomer_action());
         main_menu.new_employee.addActionListener((event) -> newemployee_action());
+        main_menu.manage_employee.addActionListener((event) -> viewemployee_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
         constraints.anchor = GridBagConstraints.CENTER;
@@ -148,6 +149,29 @@ public class WrapperClass extends JFrame
         details_panel.updateUI();
         details_panel.setVisible(true);
 
+    }
+    public void viewemployee_action()
+    {
+        ViewEmployee view_employee = new ViewEmployee();
+        JPanel viewemployee = view_employee.viewEmployee();
+        view_employee.search.addActionListener((event) -> view_employee.searchemployeeaction (this));
+        view_employee.edit.addActionListener((event) -> view_employee.editaction (this));
+        view_employee.delete.addActionListener((event) -> view_employee.deleteaction (this));
+        view_employee.save.addActionListener((event) -> view_employee.saveaction (this));
+        //view_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
+
+        //constraints.anchor = GridBagConstraints.SOUTH;
+        // constraints.gridx = 0;
+        //constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;  
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+
+        details_panel.removeAll(); 
+        details_panel.add(viewemployee,constraints);
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
     }
 
     public void set_background()

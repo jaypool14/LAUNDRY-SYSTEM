@@ -10,8 +10,9 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub, customer_sub2;
-    JMenuItem new_employee;
+    JMenuItem customer_sub, customer_sub2,new_employee,manage_employee;
+    
+    
     public void initUI() {
 
         createMenuBar();
@@ -53,7 +54,7 @@ public class MainMenu extends JFrame {
         employee_menu.setMnemonic(KeyEvent.VK_N);
 
         new_employee = new JMenuItem("ADD NEW EMPLOYEES", exitIcon);
-        var manage_employee = new JMenuItem("MANAGE EMPLOYEES", exitIcon);
+        manage_employee = new JMenuItem("MANAGE EMPLOYEES", exitIcon);
         
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
@@ -61,7 +62,7 @@ public class MainMenu extends JFrame {
         manage_employee.setToolTipText("CAN VIEW EXISTING EMPLOYEES");
         
         //new_employee.addActionListener((event) -> System.exit(0));
-        manage_employee.addActionListener((event) -> System.exit(0));
+     
         employee_menu.add(new_employee);
         employee_menu.addSeparator();
         employee_menu.add(manage_employee);
