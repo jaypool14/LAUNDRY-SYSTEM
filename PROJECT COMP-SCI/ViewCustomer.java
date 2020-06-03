@@ -128,6 +128,7 @@ public class ViewCustomer extends JFrame
         number_label_text.setText("");
         address_label_text.setText("");
         email_label_text.setText("");
+        
       ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
     
         JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
