@@ -30,6 +30,7 @@ public class ViewCustomer extends JFrame
     JPasswordField password_text;
     JButton search,edit,delete,save;
     JComboBox search_box;
+    String ID="";
     public void initUI()
     {
         viewCustomer();
@@ -52,6 +53,7 @@ public class ViewCustomer extends JFrame
         try{
             ResultSet rs =sql.execute(query,true);
             if (rs.next()) {
+                ID=rs.getString("ID");
                 String name = rs.getString("name");
                 name_label_text.setText(name);
                 String number = rs.getString("number");
@@ -97,42 +99,91 @@ public class ViewCustomer extends JFrame
 
     }
 
-    public boolean saveaction(JFrame jfame)
-    {
+    public boolean saveaction(JFrame jframe)
+    {   SQL sql = new SQL();
 
-        return true;
+        String Name = name_label_text.getText();
+        String Address = address_label_text.getText();
+        String Number =  number_label_text.getText();
+        String Email =  email_label_text.getText();
+        boolean num_check = Pattern.matches("[0-9]{10}", Number);
+        boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
+        if (num_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+        if (mail_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+
+        String query = String.format("UPDATE customer set name = '%s', number= '%s',address ='%s',email ='%s' where ID=%s", Name, Number, Address, Email,ID);
+        System.out.println(query);
+        try
+        {
+            if (sql.updateQuery(query)!=0) 
+            {
+                //message.setText(" Hello " + userName+ "");
+            name_label_text.setText("");
+            number_label_text.setText("");
+            address_label_text.setText("");
+            email_label_text.setText("");
+
+            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+                JOptionPane.showMessageDialog(jframe, "Customer Updated"); 
+                return true;
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(jframe, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+                //System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
+        }
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            JOptionPane.showMessageDialog(jframe, "ERROR!!","Error",JOptionPane.ERROR_MESSAGE); 
+            return false;
+        }
+
+
+        
     }
 
     public boolean deleteaction (JFrame jframe)
     {  int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
         if(a==JOptionPane.YES_OPTION)
         {     
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        
-        
-        String name=name_label_text.getText();
-        String email=email_label_text.getText();   
-        SQL sql=new SQL();
-        String query = String.format("DELETE from customer where name='%s' and email='%s';",name,email);
-        System.out.println(query);
-        
-        try{
-            sql.updateQuery(query);
-            
+            jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
+            String name=name_label_text.getText();
+            String email=email_label_text.getText();   
+            SQL sql=new SQL();
+            String query = String.format("DELETE from customer where name='%s' and email='%s';",name,email);
+            System.out.println(query);
+
+            try{
+                sql.updateQuery(query);
+
+            }
+            catch ( Exception e ) {
+                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                return false;
+            }
+            name_label_text.setText("");
+            number_label_text.setText("");
+            address_label_text.setText("");
+            email_label_text.setText("");
+
+            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+            JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
         }
-        catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            return false;
-        }
-         name_label_text.setText("");
-        number_label_text.setText("");
-        address_label_text.setText("");
-        email_label_text.setText("");
-        
-      ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
-    
-        JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
-    }
         return true;
     }
 

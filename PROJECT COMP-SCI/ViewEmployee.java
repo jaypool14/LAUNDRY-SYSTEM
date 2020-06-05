@@ -157,7 +157,7 @@ public class ViewEmployee extends JFrame
         title_label2.setText("MANAGE EMPLOYEES");
         title_label2.setForeground(Color.WHITE);
         title_label2.setFont(new Font("Century",Font.BOLD,40));
-
+       
         String check_query = "SELECT * FROM EMPLOYEE WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
         AutoSuggest box = new AutoSuggest();
         search_box = box.create_box(check_query);
@@ -168,13 +168,14 @@ public class ViewEmployee extends JFrame
         name_label2.setForeground(Color.WHITE);
         name_label2.setFont(new Font("Century",Font.BOLD,20));
         name_label2_text = new JTextField(20);
-
+        name_label2_text.setDisabledTextColor(Color.BLUE);
         // NUMBER
         number_label2 = new JLabel();
         number_label2.setText("NUMBER :");
         number_label2.setForeground(Color.WHITE);
         number_label2.setFont(new Font("Century",Font.BOLD,20));
         number_label2_text = new JTextField(20);
+        number_label2_text.setDisabledTextColor(Color.BLUE);
 
         //EMAIL
         email_label2 = new JLabel();
@@ -182,19 +183,22 @@ public class ViewEmployee extends JFrame
         email_label2.setForeground(Color.WHITE);
         email_label2.setFont(new Font("Century",Font.BOLD,20));
         email_label2_text = new JTextField(20);
-
+        email_label2_text.setDisabledTextColor(Color.BLUE);
+        
         //JOIN DATE
         joindate_label = new JLabel();
         joindate_label.setText("JOIN DATE:");
         joindate_label.setForeground(Color.WHITE);
         joindate_label.setFont(new Font("Century",Font.BOLD,20));
         joindate_label_text = new JTextField(20);
+        joindate_label_text.setDisabledTextColor(Color.BLUE);
 
         //DESIGNATION
         designation_label = new JLabel();
         designation_label.setText("DESIGNATION:");
         designation_label.setForeground(Color.WHITE);
         designation_label.setFont(new Font("Century",Font.BOLD,20));
+        ((JTextField)desiglist.getEditor().getEditorComponent()).setDisabledTextColor(Color.BLUE);
 
         // SubmitButton
         search = new JButton("SEARCH");
@@ -258,6 +262,7 @@ public class ViewEmployee extends JFrame
         constraints.gridy = 18;
         constraints.gridx = 1;
         panel.add(delete,constraints);
+        
 
         //constraints.anchor = GridBagConstraints.NORTH;
         constraints.gridwidth = 2;
