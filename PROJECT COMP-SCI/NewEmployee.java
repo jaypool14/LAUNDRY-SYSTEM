@@ -21,6 +21,14 @@ import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import java.sql.ResultSet;
 import java.util.regex.*;
+import org.jdatepicker.*;
+import java.util.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+//import java.util.GregorianCalendar;
+import org.jdatepicker.impl.*;
+import org.jdatepicker.util.*;
+import java.util.Calendar;
 
 public class NewEmployee extends JFrame
 {   
@@ -29,6 +37,7 @@ public class NewEmployee extends JFrame
     JTextField name_label2_text,number_label2_text,email_label2_text,joindate_label_text;
     JButton submit, cancel;
     JComboBox desiglist;
+    JDatePickerImpl joindate;
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
 
     public void initUI()
@@ -80,7 +89,12 @@ public class NewEmployee extends JFrame
         joindate_label.setForeground(Color.WHITE);
         joindate_label.setFont(new Font("Century",Font.BOLD,20));
         joindate_label_text = new JTextField(20);
-
+        //------
+        joindate = (new JDatePicker()).datepanel();
+        joindate.getModel().setDate(2020,1,1);
+        joindate.getModel().setSelected(true);
+        //------
+            
         //DESIGNATION
         designation_label = new JLabel();
         designation_label.setText("DESIGNATION:");
@@ -115,13 +129,20 @@ public class NewEmployee extends JFrame
 
         constraints.gridx = 0;
         constraints.gridy = 10;
+        panel.add(joindate_label,constraints);
+
+        constraints.gridx = 1;
+        panel.add(joindate,constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 12;
         panel.add(email_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label2_text,constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 12;
+        constraints.gridy = 14;
 
         panel.add(submit,constraints);
 
@@ -159,7 +180,14 @@ public class NewEmployee extends JFrame
         String Number = number_label2_text.getText();
         String Email = email_label2_text.getText();
         String Designation= (String)desiglist.getSelectedItem();
-
+        // ------------
+        Date selectedDate = (Date) joindate.getModel().getValue();
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String datestr = formatter.format(selectedDate);
+        System.out.println("Date is : "+datestr);
+        joindate.getModel().setDate(2010,2,3);
+        joindate.getModel().setSelected(true);
+        // ------------
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
         boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
         if (num_check == false)
@@ -190,7 +218,8 @@ public class NewEmployee extends JFrame
             return false;
         }
 
-        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');", Name, Number, Email,"1120",Designation);
+        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');",
+                                      Name, Number, Email,datestr,Designation);   
         System.out.println(query);
         try
         {
@@ -215,5 +244,4 @@ public class NewEmployee extends JFrame
         }
     }
 }
-
 

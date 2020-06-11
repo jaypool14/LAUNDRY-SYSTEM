@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=DumpMethods
+comment0.text=\ \r\nCompile\ with\ this\:\r\nC\:\\Documents\ and\ Settings\\glow\\My\ Documents\\j>javac\ DumpMethods.java\r\n\r\nRun\ like\ this,\ and\ results\ follow\r\nC\:\\Documents\ and\ Settings\\glow\\My\ Documents\\j>java\ DumpMethods\r\npublic\ void\ DumpMethods.foo()\r\npublic\ int\ DumpMethods.bar()\r\npublic\ java.lang.String\ DumpMethods.baz()\r\npublic\ static\ void\ DumpMethods.main(java.lang.String[])\r\n
+comment1.params=
+comment1.target=void\ foo()
+comment2.params=
+comment2.target=int\ bar()
+comment3.params=
+comment3.target=java.lang.String\ baz()
+comment4.params=args
+comment4.target=void\ main(java.lang.String[])
+numComments=5

@@ -21,6 +21,14 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.sql.ResultSet;
 import java.util.regex.*;
+import org.jdatepicker.*;
+import java.util.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+//import java.util.GregorianCalendar;
+import org.jdatepicker.impl.*;
+import org.jdatepicker.util.*;
+import java.util.Calendar;
 
 public class ViewEmployee extends JFrame
 {   JPanel panel;
@@ -31,6 +39,7 @@ public class ViewEmployee extends JFrame
     JButton search,edit,delete,save;
     JComboBox desiglist;
     JComboBox search_box;
+    JDatePickerImpl joindate;
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
     public void initUI()
     {
@@ -63,13 +72,13 @@ public class ViewEmployee extends JFrame
                 joindate_label_text.setText(joindate);
                 String designation=rs.getString("designation");
                 desiglist.setSelectedItem(designation);
-                
+
                 name_label2_text.setEnabled(false);
                 number_label2_text.setEnabled(false);
                 email_label2_text.setEnabled(false);
                 joindate_label_text.setEnabled(false);
                 desiglist.setEnabled(false);
-                
+
                 save.setVisible(false);
                 edit.setVisible(true);
                 sql.c.close();
@@ -90,20 +99,19 @@ public class ViewEmployee extends JFrame
         }
 
     }
-    
 
     public boolean editaction (JFrame jframe)
     {
         name_label2_text.setEnabled(true);
         number_label2_text.setEnabled(true);
         email_label2_text.setEnabled(true);
-        joindate_label_text.setEnabled(true);
+        //joindate_label_text.setEnabled(true);
         desiglist.setEnabled(true);
         edit.setVisible(false);
         save.setVisible(true);
         return false;
     }
-    
+
     public boolean saveaction(JFrame jfame)
     {
 
@@ -114,35 +122,33 @@ public class ViewEmployee extends JFrame
     {int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
         if(a==JOptionPane.YES_OPTION)
         {     
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        
-        
-        String name=name_label2_text.getText();
-        String email=email_label2_text.getText();   
-        SQL sql=new SQL();
-        String query = String.format("DELETE from EMPLOYEE where name='%s' and email='%s';",name,email);
-        System.out.println(query);
-        
-        try{
-            sql.updateQuery(query);
-            
+            jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
+            String name=name_label2_text.getText();
+            String email=email_label2_text.getText();   
+            SQL sql=new SQL();
+            String query = String.format("DELETE from EMPLOYEE where name='%s' and email='%s';",name,email);
+            System.out.println(query);
+
+            try{
+                sql.updateQuery(query);
+
+            }
+            catch ( Exception e ) {
+                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                return false;
+            }
+            name_label2_text.setText("");
+            number_label2_text.setText("");
+            email_label2_text.setText("");
+            joindate_label_text.setText("");
+
+            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+            JOptionPane.showMessageDialog(jframe, "Employee has been deleted succesfully"); 
         }
-        catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            return false;
-        }
-        name_label2_text.setText("");
-        number_label2_text.setText("");
-        email_label2_text.setText("");
-        joindate_label_text.setText("");
-        
-      ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
-    
-        JOptionPane.showMessageDialog(jframe, "Employee has been deleted succesfully"); 
-    }
         return true;
     }
-
 
     public JPanel viewEmployee() 
     {    
@@ -157,7 +163,7 @@ public class ViewEmployee extends JFrame
         title_label2.setText("MANAGE EMPLOYEES");
         title_label2.setForeground(Color.WHITE);
         title_label2.setFont(new Font("Century",Font.BOLD,40));
-       
+
         String check_query = "SELECT * FROM EMPLOYEE WHERE name LIKE '%%%s%%' OR email LIKE '%%%s%%';";
         AutoSuggest box = new AutoSuggest();
         search_box = box.create_box(check_query);
@@ -184,14 +190,13 @@ public class ViewEmployee extends JFrame
         email_label2.setFont(new Font("Century",Font.BOLD,20));
         email_label2_text = new JTextField(20);
         email_label2_text.setDisabledTextColor(Color.BLUE);
-        
+
         //JOIN DATE
         joindate_label = new JLabel();
         joindate_label.setText("JOIN DATE:");
         joindate_label.setForeground(Color.WHITE);
         joindate_label.setFont(new Font("Century",Font.BOLD,20));
-        joindate_label_text = new JTextField(20);
-        joindate_label_text.setDisabledTextColor(Color.BLUE);
+        joindate = (new JDatePicker()).datepanel();
 
         //DESIGNATION
         designation_label = new JLabel();
@@ -231,28 +236,27 @@ public class ViewEmployee extends JFrame
         panel.add(number_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 10;
+        constraints.gridy = 14;
         panel.add(email_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 12;
-        panel.add(number_label2,constraints);
-
-        constraints.gridx = 1;
-        panel.add(number_label2_text,constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 8;
+        constraints.gridy = 10;
         panel.add(designation_label,constraints);
 
         constraints.gridx = 1;
         panel.add(desiglist,constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 12;
+        panel.add(joindate_label,constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 14;
+        panel.add(joindate,constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 16;
 
         constraints.insets = new Insets(5, 20, 5, 20);
         constraints.gridwidth = 2;
@@ -262,7 +266,6 @@ public class ViewEmployee extends JFrame
         constraints.gridy = 18;
         constraints.gridx = 1;
         panel.add(delete,constraints);
-        
 
         //constraints.anchor = GridBagConstraints.NORTH;
         constraints.gridwidth = 2;
