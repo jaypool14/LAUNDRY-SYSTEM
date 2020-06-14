@@ -40,6 +40,7 @@ public class ViewEmployee extends JFrame
     JComboBox desiglist;
     JComboBox search_box;
     JDatePickerImpl joindate;
+    String ID="";
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
     public void initUI()
     {
@@ -62,6 +63,7 @@ public class ViewEmployee extends JFrame
         try{
             ResultSet rs =sql.execute(query,true);
             if (rs.next()) {
+                ID=rs.getString("ID");
                 String name = rs.getString("name");
                 name_label2_text.setText(name);
                 String number = rs.getString("number");
@@ -69,14 +71,14 @@ public class ViewEmployee extends JFrame
                 String email = rs.getString("email");
                 email_label2_text.setText(email);
                 String joindate = rs.getString("joindate");
-                joindate_label_text.setText(joindate);
+                //joindate_label_text.setText(joindate);
                 String designation=rs.getString("designation");
                 desiglist.setSelectedItem(designation);
 
                 name_label2_text.setEnabled(false);
                 number_label2_text.setEnabled(false);
                 email_label2_text.setEnabled(false);
-                joindate_label_text.setEnabled(false);
+                //joindate_label_text.setEnabled(false);
                 desiglist.setEnabled(false);
 
                 save.setVisible(false);
@@ -112,10 +114,66 @@ public class ViewEmployee extends JFrame
         return false;
     }
 
-    public boolean saveaction(JFrame jfame)
-    {
+    public boolean saveaction(JFrame jframe)
+    {   SQL sql = new SQL();
 
-        return true;
+        String Name = name_label2_text.getText();
+        String Number =  number_label2_text.getText();
+        String Email =  email_label2_text.getText();
+        String joindate= "10";//joindate_label_text.getText();
+        String desiglist2=((JTextField) desiglist.getEditor().getEditorComponent()).getText();
+
+       
+        
+        
+        boolean num_check = Pattern.matches("[0-9]{10}", Number);
+        boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
+        if (num_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+        if (mail_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }    
+
+        String query = String.format("UPDATE EMPLOYEE set name = '%s', number= '%s',email ='%s',joindate='%s',designation='%s' where ID=%s", Name, Number,Email,joindate,desiglist2,ID);
+        System.out.println(query);
+        try
+        {
+            if (sql.updateQuery(query)!=0) 
+            {
+                //message.setText(" Hello " + userName+ "");
+            name_label2_text.setText("");
+            number_label2_text.setText("");
+            email_label2_text.setText("");
+            //joindate_label_text.setText("");
+            ((JTextField) desiglist.getEditor().getEditorComponent()).setText("");
+            
+
+            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+                JOptionPane.showMessageDialog(jframe, "Employee Updated"); 
+                return true;
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(jframe, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+                //System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
+        }
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            JOptionPane.showMessageDialog(jframe, "ERROR!!","Error",JOptionPane.ERROR_MESSAGE); 
+            return false;
+        }
+
+
     }
 
     public boolean deleteaction (JFrame jframe)
@@ -141,7 +199,7 @@ public class ViewEmployee extends JFrame
             name_label2_text.setText("");
             number_label2_text.setText("");
             email_label2_text.setText("");
-            joindate_label_text.setText("");
+            //joindate_label_text.setText("");
 
             ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
 
