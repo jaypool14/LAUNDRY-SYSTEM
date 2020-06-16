@@ -31,6 +31,7 @@ public class ViewCustomer extends JFrame
     JButton search,edit,delete,save;
     JComboBox search_box;
     String ID="";
+    int selected = 0;
     public void initUI()
     {
         viewCustomer();
@@ -53,6 +54,7 @@ public class ViewCustomer extends JFrame
         try{
             ResultSet rs =sql.execute(query,true);
             if (rs.next()) {
+                selected = 1;
                 ID=rs.getString("ID");
                 String name = rs.getString("name");
                 name_label_text.setText(name);
@@ -89,14 +91,20 @@ public class ViewCustomer extends JFrame
 
     public boolean editaction (JFrame jframe)
     {
-        name_label_text.setEnabled(true);
-        number_label_text.setEnabled(true);
-        address_label_text.setEnabled(true);
-        email_label_text.setEnabled(true);
-        edit.setVisible(false);
-        save.setVisible(true);
-        return false;
-
+        if (selected==1)
+        {
+            name_label_text.setEnabled(true);
+            number_label_text.setEnabled(true);
+            address_label_text.setEnabled(true);
+            email_label_text.setEnabled(true);
+            edit.setVisible(false);
+            save.setVisible(true);
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(jframe, "Select a Customer to Edit.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public boolean saveaction(JFrame jframe)
@@ -126,13 +134,14 @@ public class ViewCustomer extends JFrame
             if (sql.updateQuery(query)!=0) 
             {
                 //message.setText(" Hello " + userName+ "");
-            name_label_text.setText("");
-            number_label_text.setText("");
-            address_label_text.setText("");
-            email_label_text.setText("");
-
-            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
-
+                name_label_text.setText("");
+                number_label_text.setText("");
+                address_label_text.setText("");
+                email_label_text.setText("");
+                ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+                edit.setVisible(true);
+                save.setVisible(false);
+                selected = 0;
                 JOptionPane.showMessageDialog(jframe, "Customer Updated"); 
                 return true;
             } 
@@ -151,12 +160,14 @@ public class ViewCustomer extends JFrame
             return false;
         }
 
-
         
     }
 
     public boolean deleteaction (JFrame jframe)
-    {  int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
+    {  
+        if (selected == 1)
+        {
+        int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
         if(a==JOptionPane.YES_OPTION)
         {     
             jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -184,7 +195,13 @@ public class ViewCustomer extends JFrame
 
             JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
         }
+        selected = 0;
         return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(jframe, "Select a Customer to Delete.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public JPanel viewCustomer() 

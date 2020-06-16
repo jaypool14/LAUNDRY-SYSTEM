@@ -91,8 +91,8 @@ public class NewEmployee extends JFrame
         joindate_label_text = new JTextField(20);
         //------
         joindate = (new JDatePicker()).datepanel();
-        joindate.getModel().setDate(2020,1,1);
-        joindate.getModel().setSelected(true);
+        //joindate.getModel().setDate(2020,1,1);
+        //joindate.getModel().setSelected(true);
         //------
             
         //DESIGNATION
@@ -185,8 +185,8 @@ public class NewEmployee extends JFrame
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         String datestr = formatter.format(selectedDate);
         System.out.println("Date is : "+datestr);
-        joindate.getModel().setDate(2010,2,3);
-        joindate.getModel().setSelected(true);
+        //joindate.getModel().setDate(2010,2,3);
+        //joindate.getModel().setSelected(true);
         // ------------
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
         boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
@@ -225,6 +225,12 @@ public class NewEmployee extends JFrame
         {
             if (sql.updateQuery(query)!=0) 
             {
+                name_label2_text.setText("");
+                number_label2_text.setText("");
+                email_label2_text.setText("");
+                //joindate_label_text.setText("");
+                ((JTextField) desiglist.getEditor().getEditorComponent()).setText("");
+                joindate.getModel().setSelected(false);
                 //message.setText(" Hello " + userName+ "");
                 JOptionPane.showMessageDialog(jframe, "Employee added"); 
                 return true;

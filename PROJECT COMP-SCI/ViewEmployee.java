@@ -42,6 +42,7 @@ public class ViewEmployee extends JFrame
     JDatePickerImpl joindate;
     String ID="";
     String[] designation = { "DRIVER", "CLEANER", "MANAGER"};
+    int selected = 0;
     public void initUI()
     {
         viewEmployee();
@@ -53,7 +54,8 @@ public class ViewEmployee extends JFrame
     }
 
     public boolean searchemployeeaction (JFrame jframe)
-    {String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText();      
+    {
+        String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText();      
         System.out.println(typedText);
         String[] Details=typedText.split(" : ");
         SQL sql=new SQL();
@@ -63,6 +65,7 @@ public class ViewEmployee extends JFrame
         try{
             ResultSet rs =sql.execute(query,true);
             if (rs.next()) {
+                selected = 1;
                 ID=rs.getString("ID");
                 String name = rs.getString("name");
                 name_label2_text.setText(name);
@@ -70,8 +73,16 @@ public class ViewEmployee extends JFrame
                 number_label2_text.setText(number);
                 String email = rs.getString("email");
                 email_label2_text.setText(email);
-                String joindate = rs.getString("joindate");
-                //joindate_label_text.setText(joindate);
+
+                String joindate_value = rs.getString("joindate");
+                System.out.println("join date" +joindate_value);
+                String[] date=joindate_value.split("-");
+                int day = Integer.parseInt(date[0]);
+                int month = Integer.parseInt(date[1]);
+                int year = Integer.parseInt(date[2]);                
+                joindate.getModel().setDate(year,month-1,day);
+                joindate.getModel().setSelected(false);
+                joindate.getModel().setSelected(true);
                 String designation=rs.getString("designation");
                 desiglist.setSelectedItem(designation);
 
@@ -104,14 +115,22 @@ public class ViewEmployee extends JFrame
 
     public boolean editaction (JFrame jframe)
     {
-        name_label2_text.setEnabled(true);
-        number_label2_text.setEnabled(true);
-        email_label2_text.setEnabled(true);
-        //joindate_label_text.setEnabled(true);
-        desiglist.setEnabled(true);
-        edit.setVisible(false);
-        save.setVisible(true);
-        return false;
+        if (selected ==1)
+        {
+            name_label2_text.setEnabled(true);
+            number_label2_text.setEnabled(true);
+            email_label2_text.setEnabled(true);
+            //joindate_label_text.setEnabled(true);
+            desiglist.setEnabled(true);
+            edit.setVisible(false);
+            save.setVisible(true);
+            return true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(jframe, "Select an Employee to Edit.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public boolean saveaction(JFrame jframe)
@@ -120,12 +139,13 @@ public class ViewEmployee extends JFrame
         String Name = name_label2_text.getText();
         String Number =  number_label2_text.getText();
         String Email =  email_label2_text.getText();
-        String joindate= "10";//joindate_label_text.getText();
+        // ------------
+        Date selectedDate = (Date) joindate.getModel().getValue();
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String datestr = formatter.format(selectedDate);
+        System.out.println("Date is : "+datestr);
         String desiglist2=((JTextField) desiglist.getEditor().getEditorComponent()).getText();
-
-       
-        
-        
+        //-----------------
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
         boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
         if (num_check == false)
@@ -139,22 +159,24 @@ public class ViewEmployee extends JFrame
             return false;
         }    
 
-        String query = String.format("UPDATE EMPLOYEE set name = '%s', number= '%s',email ='%s',joindate='%s',designation='%s' where ID=%s", Name, Number,Email,joindate,desiglist2,ID);
+        String query = String.format("UPDATE EMPLOYEE set name = '%s', number= '%s',email ='%s',joindate='%s',designation='%s' where ID=%s", Name, Number,Email,datestr,desiglist2,ID);
         System.out.println(query);
         try
         {
             if (sql.updateQuery(query)!=0) 
             {
                 //message.setText(" Hello " + userName+ "");
-            name_label2_text.setText("");
-            number_label2_text.setText("");
-            email_label2_text.setText("");
-            //joindate_label_text.setText("");
-            ((JTextField) desiglist.getEditor().getEditorComponent()).setText("");
-            
-
-            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
-
+                name_label2_text.setText("");
+                number_label2_text.setText("");
+                email_label2_text.setText("");
+                //joindate_label_text.setText("");
+                ((JTextField) desiglist.getEditor().getEditorComponent()).setText("");
+                joindate.getModel().setSelected(false);
+                ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+                joindate = (new JDatePicker()).datepanel();
+                edit.setVisible(true);
+                save.setVisible(false);
+                selected = 0;
                 JOptionPane.showMessageDialog(jframe, "Employee Updated"); 
                 return true;
             } 
@@ -173,39 +195,47 @@ public class ViewEmployee extends JFrame
             return false;
         }
 
-
     }
 
     public boolean deleteaction (JFrame jframe)
-    {int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
-        if(a==JOptionPane.YES_OPTION)
-        {     
-            jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+    {
+        if (selected == 1)
+        {
+            int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
+            if(a==JOptionPane.YES_OPTION)
+            {     
+                jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
-            String name=name_label2_text.getText();
-            String email=email_label2_text.getText();   
-            SQL sql=new SQL();
-            String query = String.format("DELETE from EMPLOYEE where name='%s' and email='%s';",name,email);
-            System.out.println(query);
+                String name=name_label2_text.getText();
+                String email=email_label2_text.getText();   
+                SQL sql=new SQL();
+                String query = String.format("DELETE from EMPLOYEE where name='%s' and email='%s';",name,email);
+                System.out.println(query);
 
-            try{
-                sql.updateQuery(query);
+                try{
+                    sql.updateQuery(query);
 
+                }
+                catch ( Exception e ) {
+                    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                    return false;
+                }
+                name_label2_text.setText("");
+                number_label2_text.setText("");
+                email_label2_text.setText("");
+                //joindate_label_text.setText("");
+
+                ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+                JOptionPane.showMessageDialog(jframe, "Employee has been deleted succesfully"); 
             }
-            catch ( Exception e ) {
-                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-                return false;
-            }
-            name_label2_text.setText("");
-            number_label2_text.setText("");
-            email_label2_text.setText("");
-            //joindate_label_text.setText("");
-
-            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
-
-            JOptionPane.showMessageDialog(jframe, "Employee has been deleted succesfully"); 
+            selected = 0;
+            return true;
         }
-        return true;
+        else{
+            JOptionPane.showMessageDialog(jframe, "Select a Customer to Delete.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     public JPanel viewEmployee() 
