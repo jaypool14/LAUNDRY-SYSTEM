@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PlaceOrder
+comment1.params=
+comment1.target=void\ initUI()
+comment2.params=
+comment2.target=javax.swing.JPanel\ newOrder()
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4

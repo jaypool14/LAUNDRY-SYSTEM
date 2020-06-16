@@ -8,7 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
-
+import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,19 +25,25 @@ import java.util.regex.*;
 public class PlaceOrder extends JFrame
 {
     JPanel panel;
-    JLabel title_label,name_label,number_label,address_label,email_label, message;
-    JTextField name_label_text,number_label_text,email_label_text;
-    JTextArea address_label_text;
-    JPasswordField password_text;
-    JButton submit, cancel;
-    public void initUI()
+    JLabel title_label,customer_email_label,num_cloth_label,cloth_type_label,image_label,order_priority_label, total_cost_label;
+    JTextField num_cloth_text,total_cost_text;
+    
+   
+    
+    JButton place_order,add_row;
+    JComboBox search_box,cloth_type,order_priority;
+     String[] CLOTHES = { "UNDERGAMRNETS", "JEANS", "SHORTS","PANTS","SKIRTS","TSHIRT","SHIRT","BLANKETS","SUIT","EHTNIC"};
+     String[] PRIORITY = { "STANDARD", "EXPRESS"};
+    
+        
+  public void initUI()
     {
-        newCustomer();
+        newOrder();
         setVisible(true);
-        submit.addActionListener((event) -> customeraddaction (this));
+        
     }
     
-    public JPanel newCustomer() 
+    public JPanel newOrder() 
     {    
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -45,77 +51,121 @@ public class PlaceOrder extends JFrame
         
         //TITLE
         title_label = new JLabel();
-        title_label.setText("CREATE NEW CUSTOMER");
+        title_label.setText("PLACE ORDER");
         title_label.setForeground(Color.WHITE);
         title_label.setFont(new Font("Century",Font.BOLD,40));
         
-        // NAME
-        name_label = new JLabel();
-        name_label.setText("NAME :");
-        name_label.setForeground(Color.WHITE);
-        name_label.setFont(new Font("Century",Font.BOLD,20));
-        name_label_text = new JTextField(20);
+        // CUSTOMER EMAIL
+        customer_email_label = new JLabel();
+        customer_email_label.setText("CUSTOMER EMAIL :");
+        customer_email_label.setForeground(Color.WHITE);
+        customer_email_label.setFont(new Font("Century",Font.BOLD,20));
+       
         
-        // NUMBER
-        number_label = new JLabel();
-        number_label.setText("NUMBER :");
-        number_label.setForeground(Color.WHITE);
-        number_label.setFont(new Font("Century",Font.BOLD,20));
-        number_label_text = new JTextField(20);
+        String check_query = "SELECT * FROM EMPLOYEE WHERE  email LIKE '%%%s%%';";
+        AutoSuggest box = new AutoSuggest();
+        search_box = box.create_box(check_query);
         
-        //ADDRESS
-        address_label = new JLabel();
-        address_label.setText("ADDRESS :");
-        address_label.setForeground(Color.WHITE);
-        address_label.setFont(new Font("Century",Font.BOLD,20));
-        address_label_text = new JTextArea(5,20);
+        // PEICES OF CLOTH
+        num_cloth_label = new JLabel();
+        num_cloth_label.setText(" PIECES OF CLOTH");
+        num_cloth_label.setForeground(Color.WHITE);
+        num_cloth_label.setFont(new Font("Century",Font.BOLD,20));
+        num_cloth_text = new JTextField(20);
         
-        //EMAIL
-        email_label = new JLabel();
-        email_label.setText("EMAIL :");
-        email_label.setForeground(Color.WHITE);
-        email_label.setFont(new Font("Century",Font.BOLD,20));
-        email_label_text = new JTextField(20);
+        //TYPE OF CLOTH
+        cloth_type_label = new JLabel();
+        cloth_type_label.setText("TYPE OF CLOTH:");
+        cloth_type_label.setForeground(Color.WHITE);
+        cloth_type_label.setFont(new Font("Century",Font.BOLD,20));
+        cloth_type = new JComboBox(CLOTHES);
+        cloth_type.setSelectedIndex(0); 
+        ((JTextField)cloth_type.getEditor().getEditorComponent()).setDisabledTextColor(Color.BLUE);
+        
+      
+        
+        //IMAGE OF LAUNDRY 
+        image_label = new JLabel();
+        image_label.setText("IMAGE :");
+        image_label.setForeground(Color.WHITE);
+        image_label.setFont(new Font("Century",Font.BOLD,20));
+      
 
-        // SubmitButton
-        submit = new JButton("ADD CUSTOMER");
+        //ORDER PRIORITY
+        order_priority_label = new JLabel();
+        order_priority_label.setText("ORDER PRIORITY");
+        order_priority_label.setForeground(Color.WHITE);
+        order_priority_label.setFont(new Font("Century",Font.BOLD,20));
+        order_priority = new JComboBox(PRIORITY);
+        order_priority.setSelectedIndex(0); 
+        ((JTextField)order_priority.getEditor().getEditorComponent()).setDisabledTextColor(Color.BLUE);
+       
+        
+        
+      
+        //TOTAL COST
+        total_cost_label = new JLabel();
+        total_cost_label.setText("TOTAL COST :");
+        total_cost_label.setForeground(Color.WHITE);
+        total_cost_label.setFont(new Font("Century",Font.BOLD,20));
+        total_cost_text = new JTextField(20);
+        
+        // BUTTONS
+        place_order = new JButton("PLACE ORDER");
+        add_row = new JButton("ADD ROW");
         
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         
         constraints.gridx = 0;
         constraints.gridy = 4;
-        panel.add(name_label,constraints);
+        panel.add(customer_email_label,constraints);
+       
         
         constraints.gridx = 1;
-        panel.add(name_label_text,constraints);
+        panel.add(search_box,constraints);
         
         constraints.gridx = 0;
         constraints.gridy = 6;
-        panel.add(number_label,constraints);
+        panel.add(num_cloth_label,constraints);
         
         constraints.gridx = 1;
-        panel.add(number_label_text,constraints);
+        panel.add(num_cloth_text,constraints);
         
-        constraints.gridx = 0;
+        constraints.gridx = 2;
+        constraints.gridy = 6;
+        panel.add(cloth_type_label,constraints);
+        
+        constraints.gridx = 3;
+        panel.add(cloth_type,constraints);
+        
+        constraints.gridx = 1;
         constraints.gridy = 8;
-        panel.add(address_label,constraints);
-        
-        constraints.gridx = 1;
-        panel.add(address_label_text,constraints);
+        panel.add(add_row,constraints);
         
         constraints.gridx = 0;
         constraints.gridy = 10;
-        panel.add(email_label,constraints);
+        panel.add(image_label,constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 12;
+        panel.add(order_priority_label,constraints);
         
         constraints.gridx = 1;
-        panel.add(email_label_text,constraints);
-
+       // constraints.gridy = 14;
+        panel.add(order_priority,constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 14;
+        panel.add(total_cost_label,constraints);
+        
         constraints.gridx = 1;
-        constraints.gridy = 12;
-        //
-        //constraints.anchor = GridBagConstraints.NORTH;
-        panel.add(submit,constraints);
+        panel.add(total_cost_text,constraints);
+        
+      
+        constraints.gridx = 1;
+        constraints.gridy = 16;
+        panel.add(place_order,constraints);
 
         
         //constraints.anchor = GridBagConstraints.NORTH;
@@ -135,7 +185,7 @@ public class PlaceOrder extends JFrame
         
         // Adding the listeners to components..
         add(panel, BorderLayout.CENTER);
-        setTitle("Enter customer details here !");
+        setTitle("CUSTOMER ORDERS !");
         pack();
         panel.setOpaque(false);
         return panel;
@@ -144,6 +194,7 @@ public class PlaceOrder extends JFrame
     public static void main(String[] args) 
     {
         var login = new PlaceOrder();
-        login.initUI();
+       login.initUI();
     }
+}
     
