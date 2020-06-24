@@ -25,6 +25,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
+import javax.swing.JScrollPane;
 import java.util.regex.*;
 import javax.swing.DefaultCellEditor;
 public class PlaceOrder extends JFrame
@@ -149,7 +150,7 @@ public class PlaceOrder extends JFrame
 
         constraints.gridx = 0;
         constraints.gridy = 6;
-        //constraints.gridwidth = 2;
+        constraints.gridwidth = 2;
         //jpanel.setSize(new Dimension(100, 100));
         panel.add(table,constraints);
         //panel.add(num_cloth_label,constraints);
@@ -208,7 +209,8 @@ public class PlaceOrder extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding the listeners to components..
-        add(panel, BorderLayout.CENTER);
+        JScrollPane panelPane = new JScrollPane(panel);
+        add(panelPane, BorderLayout.CENTER);
         setTitle("CUSTOMER ORDERS !");
         pack();
         panel.setOpaque(false);
