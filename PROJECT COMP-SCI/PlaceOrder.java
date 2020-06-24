@@ -125,7 +125,7 @@ public class PlaceOrder extends JFrame
 
         constraints.gridx = 0;
         constraints.gridy = 6;
-        //constraints.gridwidth = 2;
+        constraints.gridwidth = 2;
         //jpanel.setSize(new Dimension(100, 100));
         panel.add(jtable,constraints);
         //panel.add(num_cloth_label,constraints);
