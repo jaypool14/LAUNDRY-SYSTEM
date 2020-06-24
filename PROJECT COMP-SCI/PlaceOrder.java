@@ -67,7 +67,7 @@ public class PlaceOrder extends JFrame
         search_box = box.create_box(check_query);
         // Jtable
         OrderTable order_table = new OrderTable();
-        jpanel = order_table.newTable();
+        jtable = order_table.newTable();
         // PEICES OF CLOTH
         num_cloth_label = new JLabel();
         num_cloth_label.setText(" PIECES OF CLOTH");
@@ -125,8 +125,8 @@ public class PlaceOrder extends JFrame
         constraints.gridx = 0;
         constraints.gridy = 6;
         //constraints.gridwidth = 2;
-        jpanel.setSize(new Dimension(100, 100));
-        panel.add(jpanel,constraints);
+        //jpanel.setSize(new Dimension(100, 100));
+        panel.add(jtable,constraints);
         //panel.add(num_cloth_label,constraints);
         /*
         constraints.gridx = 1;
