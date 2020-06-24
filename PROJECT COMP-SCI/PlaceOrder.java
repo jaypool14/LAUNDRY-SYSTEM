@@ -25,6 +25,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
+import javax.swing.JScrollPane;
 import java.util.regex.*;
 public class PlaceOrder extends JFrame
 {
@@ -183,7 +184,8 @@ public class PlaceOrder extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding the listeners to components..
-        add(panel, BorderLayout.CENTER);
+        JScrollPane panelPane = new JScrollPane(panel);
+        add(panelPane, BorderLayout.CENTER);
         setTitle("CUSTOMER ORDERS !");
         pack();
         panel.setOpaque(false);
