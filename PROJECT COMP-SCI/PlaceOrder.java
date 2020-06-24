@@ -26,13 +26,15 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import java.util.regex.*;
+import javax.swing.DefaultCellEditor;
 public class PlaceOrder extends JFrame
 {
     JPanel panel, jpanel;
     JLabel title_label,customer_email_label,num_cloth_label,cloth_type_label,image_label,order_priority_label, total_cost_label;
     JTextField num_cloth_text,total_cost_text;
-    JTable jtable;
+    JTable table = new JTable(0, 2);
     JButton place_order,add_row;
+    
     JComboBox search_box,cloth_type,order_priority;
     String[] CLOTHES = { "UNDERGAMRNETS", "JEANS", "SHORTS","PANTS","SKIRTS","TSHIRT","SHIRT","BLANKETS","SUIT","EHTNIC"};
     String[] PRIORITY = { "STANDARD", "EXPRESS"};
@@ -66,8 +68,31 @@ public class PlaceOrder extends JFrame
         AutoSuggest box = new AutoSuggest();
         search_box = box.create_box(check_query);
         // Jtable
-        OrderTable order_table = new OrderTable();
-        jtable = order_table.newTable();
+        
+       
+        Font font = new Font("Verdana", Font.PLAIN, 12);
+        table.setFont(font);
+        table.setRowHeight(30);
+        //table.setBackground(Color.orange);
+        //table.setForeground(Color.white);
+      
+        TableColumn testColumn = table.getColumnModel().getColumn(0);
+        JComboBox<String> comboBox = new JComboBox<>();
+        comboBox.addItem("Asia");
+        comboBox.addItem("Europe");
+        comboBox.addItem("North America");
+        comboBox.addItem("South America");
+        comboBox.addItem("Africa");
+        comboBox.addItem("Antartica");
+        comboBox.addItem("Australia");
+        comboBox.setSelectedItem("ASIA");
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        testColumn.setCellEditor(new DefaultCellEditor(comboBox));
+                
+        model.addRow(new Object[]{"ASIA", "1"});
+   
+
+    
         // PEICES OF CLOTH
         num_cloth_label = new JLabel();
         num_cloth_label.setText(" PIECES OF CLOTH");
@@ -126,7 +151,7 @@ public class PlaceOrder extends JFrame
         constraints.gridy = 6;
         //constraints.gridwidth = 2;
         //jpanel.setSize(new Dimension(100, 100));
-        panel.add(jtable,constraints);
+        panel.add(table,constraints);
         //panel.add(num_cloth_label,constraints);
         /*
         constraints.gridx = 1;
@@ -142,7 +167,7 @@ public class PlaceOrder extends JFrame
         constraints.gridx = 1;
         constraints.gridy = 8;
         panel.add(add_row,constraints);
-        add_row.addActionListener((event) -> order_table.addrow (order_table.table));
+        add_row.addActionListener((event) -> addrow (table));
 
         constraints.gridx = 0;
         constraints.gridy = 10;
@@ -194,6 +219,11 @@ public class PlaceOrder extends JFrame
     {
         var login = new PlaceOrder();
         login.initUI();
+    }
+    public boolean addrow(JTable table){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.addRow(new Object[]{"ASIA", "1"});
+        return true;
     }
 }
  
