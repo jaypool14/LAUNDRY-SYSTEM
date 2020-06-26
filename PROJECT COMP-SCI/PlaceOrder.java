@@ -34,10 +34,12 @@ public class PlaceOrder extends JFrame
     JLabel title_label,customer_email_label,num_cloth_label,cloth_type_label,image_label,order_priority_label, total_cost_label;
     JTextField num_cloth_text,total_cost_text;
     JTable table = new JTable(0, 2);
-    JButton place_order,add_row;
+    JButton place_order,add_row,delete_row;
     
     JComboBox search_box,cloth_type,order_priority;
     String[] CLOTHES = { "UNDERGAMRNETS", "JEANS", "SHORTS","PANTS","SKIRTS","TSHIRT","SHIRT","BLANKETS","SUIT","EHTNIC"};
+    String[] PRICE = { "30", "50", "40","60","50","40","60","100","100","150"};
+
     String[] PRIORITY = { "STANDARD", "EXPRESS"};
 
     public void initUI()
@@ -79,18 +81,21 @@ public class PlaceOrder extends JFrame
       
         TableColumn testColumn = table.getColumnModel().getColumn(0);
         JComboBox<String> comboBox = new JComboBox<>();
-        comboBox.addItem("Asia");
-        comboBox.addItem("Europe");
-        comboBox.addItem("North America");
-        comboBox.addItem("South America");
-        comboBox.addItem("Africa");
-        comboBox.addItem("Antartica");
-        comboBox.addItem("Australia");
-        comboBox.setSelectedItem("ASIA");
+        comboBox.addItem("UNDERGAMRNETS");
+        comboBox.addItem("JEANS");
+        comboBox.addItem("SHORTS");
+        comboBox.addItem("PANTS");
+        comboBox.addItem("SKIRTS");
+        comboBox.addItem("TSHIRT");
+        comboBox.addItem("SHIRT");
+        comboBox.addItem("BLANKETS");
+        comboBox.addItem("SUIT");
+        comboBox.addItem("ETHNIC");
+        comboBox.setSelectedItem("");
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         testColumn.setCellEditor(new DefaultCellEditor(comboBox));
                 
-        model.addRow(new Object[]{"ASIA", "1"});
+        model.addRow(new Object[]{"SELECT", "0"});
    
 
     
@@ -137,6 +142,7 @@ public class PlaceOrder extends JFrame
         // BUTTONS
         place_order = new JButton("PLACE ORDER");
         add_row = new JButton("ADD ROW");
+        delete_row = new JButton("DELETE ROW");
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -154,21 +160,26 @@ public class PlaceOrder extends JFrame
         //jpanel.setSize(new Dimension(100, 100));
         panel.add(table,constraints);
         //panel.add(num_cloth_label,constraints);
-        /*
-        constraints.gridx = 1;
-        panel.add(num_cloth_text,constraints);
+     
 
-        constraints.gridx = 2;
-        constraints.gridy = 6;
+        constraints.gridx = 0;
+        constraints.gridy = 5;
         panel.add(cloth_type_label,constraints);
+        
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        panel.add(num_cloth_label,constraints);
 
-        constraints.gridx = 3;
-        panel.add(cloth_type,constraints);
-        */
+      
         constraints.gridx = 1;
         constraints.gridy = 8;
         panel.add(add_row,constraints);
         add_row.addActionListener((event) -> addrow (table));
+        
+        constraints.gridx = 0;
+        constraints.gridy = 8;
+        panel.add(delete_row,constraints);
+        //add_row.addActionListener((event) -> addrow (table));
 
         constraints.gridx = 0;
         constraints.gridy = 10;
