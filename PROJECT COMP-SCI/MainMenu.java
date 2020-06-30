@@ -51,7 +51,7 @@ public class MainMenu extends JFrame {
         //THIS IS THE MENU FOR EMPLOYEES
         var employee_menu = new JMenu("EMPLOYEES");
         
-        employee_menu.setMnemonic(KeyEvent.VK_N);
+        employee_menu.setMnemonic(KeyEvent.VK_E);
 
         new_employee = new JMenuItem("ADD NEW EMPLOYEES", exitIcon);
         manage_employee = new JMenuItem("MANAGE EMPLOYEES", exitIcon);
@@ -70,7 +70,7 @@ public class MainMenu extends JFrame {
         //THIS IS THE MENU FOR ORDERS
         var order_menu = new JMenu("ORDERS");
         
-        employee_menu.setMnemonic(KeyEvent.VK_O);
+        order_menu.setMnemonic(KeyEvent.VK_O);
 
         var place_orders = new JMenuItem("PLACE ORDER", exitIcon);
         var review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
