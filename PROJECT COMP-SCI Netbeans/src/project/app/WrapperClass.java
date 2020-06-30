@@ -90,6 +90,7 @@ public class WrapperClass extends JFrame
         //add(panelPane, BorderLayout.CENTER);
         add(panelPane);
         pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -203,7 +204,7 @@ public class WrapperClass extends JFrame
         catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(710, 612, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(780, 612, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         mainPanel = new JLabel(imageIcon) 
         {

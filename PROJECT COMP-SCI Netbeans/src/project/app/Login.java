@@ -1,10 +1,6 @@
 package project.app;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.regex.*;
 
@@ -37,7 +32,6 @@ public class Login extends JFrame{
         
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
         
         // User Label
@@ -58,6 +52,9 @@ public class Login extends JFrame{
         submit = new JButton("LOGIN");
         
                 
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.weighty = 1;
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(user_label,constraints);
@@ -72,25 +69,17 @@ public class Login extends JFrame{
         constraints.gridx = 1;
         panel.add(password_text,constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridy = 2;
+        //constraints.weighty = 1;
+        //constraints.anchor = GridBagConstraints.CENTER;
         panel.add(submit,constraints);
 
-        message = new JLabel();
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        constraints.gridwidth = 2;
-
-        panel.add(message,constraints);
-        
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Adding the listeners to components..
         submit.addActionListener((event) -> submit_action());
-        add(panel, BorderLayout.CENTER);
+        add(panel);
         setTitle("Please Login Here !");
         pack();
         panel.setOpaque(false);
