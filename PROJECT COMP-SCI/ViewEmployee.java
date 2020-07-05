@@ -242,7 +242,7 @@ public class ViewEmployee extends JFrame
     {    
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(20, 20, 20, 20);
+        constraints.insets = new Insets(15, 20, 15, 20);
 
         desiglist = new JComboBox(designation);
         desiglist.setSelectedIndex(0); 
@@ -303,55 +303,55 @@ public class ViewEmployee extends JFrame
         constraints.anchor = GridBagConstraints.WEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 2;
         panel.add(search,constraints);
 
         constraints.gridx = 1;
         panel.add(search_box,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 4;
         panel.add(name_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(name_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 8;
+        constraints.gridy = 6;
         panel.add(number_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(number_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 14;
+        constraints.gridy = 12;
         panel.add(email_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 10;
+        constraints.gridy = 8;
         panel.add(designation_label,constraints);
 
         constraints.gridx = 1;
         panel.add(desiglist,constraints);
         constraints.gridx = 0;
-        constraints.gridy = 12;
+        constraints.gridy = 10;
         panel.add(joindate_label,constraints);
 
         constraints.gridx = 1;
         panel.add(joindate,constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 16;
+        constraints.gridy = 14;
 
         constraints.insets = new Insets(5, 20, 5, 20);
         constraints.gridwidth = 2;
         panel.add(edit,constraints);
-        constraints.gridy = 16;
+        constraints.gridy = 14;
         panel.add(save,constraints);
-        constraints.gridy = 18;
+        constraints.gridy = 16;
         constraints.gridx = 1;
         panel.add(delete,constraints);
 

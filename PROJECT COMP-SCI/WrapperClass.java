@@ -62,7 +62,7 @@ public class WrapperClass extends JFrame
         constraints.gridy = 1;   
         mainPanel.add(details_panel,constraints);
 
-        setSize(800, 600);
+        //setSize(800, 675);
 
         //asetUndecorated(true);
         menuBar.setVisible(false);
@@ -186,7 +186,7 @@ public class WrapperClass extends JFrame
         catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(1025, 575, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(1125, 675, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         mainPanel = new JLabel(imageIcon) 
         {
