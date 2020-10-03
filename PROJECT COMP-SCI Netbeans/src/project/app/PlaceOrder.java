@@ -73,8 +73,8 @@ public class PlaceOrder extends JFrame
         table.setFont(font);
         table.setRowHeight(30);
         table.setTableHeader(null);
-        //table.setBackground(Color.orange);
-        //table.setForeground(Color.white);
+        table.setBackground(Color.orange);
+        table.setForeground(Color.white);
 
         TableColumn clothesColumn = table.getColumnModel().getColumn(0);
         TableColumn numberColumn = table.getColumnModel().getColumn(1);
@@ -165,7 +165,8 @@ public class PlaceOrder extends JFrame
         //jpanel.setSize(new Dimension(100, 100));
         //panel.add(table,constraints);
         JScrollPane tableSP = new JScrollPane(table);
-        tableSP.setPreferredSize(new Dimension(400,153));
+        tableSP.setMaximumSize(new Dimension(100, 153));
+        tableSP.setPreferredSize(new Dimension(100,153));
         panel.add(tableSP, constraints);
         //panel.add(num_cloth_label,constraints);
 
@@ -221,7 +222,7 @@ public class PlaceOrder extends JFrame
         constraints.gridx = 0;
         constraints.gridy = 0;
         panel.add(title_label,constraints);
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.insets = new Insets(5, 5, 5, 5);
         JSeparator s = new JSeparator();  
         //panel.add(s,constraints);

@@ -11,7 +11,7 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub, customer_sub2,new_employee,manage_employee;
+    JMenuItem customer_sub, customer_sub2,new_employee,manage_employee, place_orders;
     
     
     public void initUI() {
@@ -73,7 +73,7 @@ public class MainMenu extends JFrame {
         
         order_menu.setMnemonic(KeyEvent.VK_O);
 
-        JMenuItem place_orders = new JMenuItem("PLACE ORDER", exitIcon);
+        place_orders = new JMenuItem("PLACE ORDER", exitIcon);
         JMenuItem review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
         JMenuItem order_control = new JMenuItem("ORDER CONTROL", exitIcon);
         
@@ -82,7 +82,7 @@ public class MainMenu extends JFrame {
         review_orders.setToolTipText("CAN REVIEW EXISTING ORDERS");
         order_control.setToolTipText("CAN CONTROL EXISTING ORDERS");
         
-        place_orders.addActionListener((event) -> System.exit(0));
+        // place_orders.addActionListener((event) -> System.exit(0));
         review_orders.addActionListener((event) -> System.exit(0));
         order_control.addActionListener((event) -> System.exit(0));
         
