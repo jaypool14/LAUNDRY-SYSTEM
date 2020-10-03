@@ -198,6 +198,7 @@ public class WrapperClass extends JFrame
     {
         PlaceOrder place_order = new PlaceOrder();
         JPanel placeorder = place_order.newOrder();
+        place_order.setlistners(this);
         // place_order.search.addActionListener((event) -> view_employee.searchemployeeaction (this));
         // view_employee.edit.addActionListener((event) -> view_employee.editaction (this));
         // view_employee.delete.addActionListener((event) -> view_employee.deleteaction (this));
