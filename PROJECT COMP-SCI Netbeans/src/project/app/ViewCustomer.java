@@ -28,10 +28,11 @@ public class ViewCustomer extends JFrame
     JTextField search_label_text,name_label_text,number_label_text,email_label_text;
     JTextArea address_label_text;
     JPasswordField password_text;
-    JButton search,edit,delete,save;
+    private JButton search,edit,delete,save;
     JComboBox search_box;
     String ID="";
     int selected = 0;
+    
     public void initUI()
     {
         viewCustomer();
@@ -40,6 +41,14 @@ public class ViewCustomer extends JFrame
         edit.addActionListener((event) -> editaction (this));
         delete.addActionListener((event) -> deleteaction (this));
         save.addActionListener((event) -> saveaction (this));
+    }
+    
+    public void setlistners(JFrame jframe)
+    {
+        search.addActionListener((event) -> searchcustomeraction (jframe));
+        edit.addActionListener((event) -> editaction (jframe));
+        delete.addActionListener((event) -> deleteaction (jframe));
+        save.addActionListener((event) -> saveaction (jframe));
     }
 
     public boolean searchcustomeraction (JFrame jframe)

@@ -131,10 +131,11 @@ public class WrapperClass extends JFrame
     {
         ViewCustomer view_customer = new ViewCustomer();
         JScrollPane viewcustomer = view_customer.viewCustomer();
-        view_customer.search.addActionListener((event) -> view_customer.searchcustomeraction (this));
-        view_customer.edit.addActionListener((event) -> view_customer.editaction (this));
-        view_customer.delete.addActionListener((event) -> view_customer.deleteaction (this));
-        view_customer.save.addActionListener((event) -> view_customer.saveaction (this));
+        view_customer.setlistners(this);
+        // view_customer.search.addActionListener((event) -> view_customer.searchcustomeraction (this));
+        // view_customer.edit.addActionListener((event) -> view_customer.editaction (this));
+        // view_customer.delete.addActionListener((event) -> view_customer.deleteaction (this));
+        // view_customer.save.addActionListener((event) -> view_customer.saveaction (this));
         //view_customer.submit.addActionListener((event) -> new_customer.customeraddaction(this));
 
         //constraints.anchor = GridBagConstraints.SOUTH;
