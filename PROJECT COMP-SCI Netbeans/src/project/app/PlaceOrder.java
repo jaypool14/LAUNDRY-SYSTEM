@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultCellEditor;
 import javax.swing.event.TableModelEvent;
@@ -44,6 +45,98 @@ public class PlaceOrder extends JFrame
         newOrder();
         setVisible(true);
 
+    }
+    public void setlistners(JFrame jframe)
+    {
+        place_order.addActionListener((event) -> placeorderaction (jframe));
+    }
+    
+    public boolean placeorderaction (JFrame jframe)
+    {
+        SQL sql = new SQL();
+        String typedText = ((JTextField)search_box.getEditor().getEditorComponent()).getText(); 
+        System.out.println(typedText);
+        String[] Details=typedText.split(" : ");
+        String cloth, number, data = "";
+        int index;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        for (int i=0; i<model.getRowCount();i++){
+            cloth = String.valueOf(model.getValueAt(i, 0));
+            number = String.valueOf(model.getValueAt(i, 1));
+            if (data.length() > 0)
+                data += ",";
+            data += cloth + "=" + number;
+        }
+        String image = "";
+        String priority = (String)order_priority.getSelectedItem();
+        String total_cost = total_cost_text.getText();
+        String query = String.format("INSERT INTO orders (customer_email,customer_name, cloth_data,image, priority, cost) VALUES ('%s','%s','%s','%s','%s','%s');", Details[0], Details[1], data, image, priority, total_cost);
+        System.out.println(query);
+        
+        try
+        {
+        /*    int a=JOptionPane.showConfirmDialog(jframe,"Are you sure?");  
+        if(a==JOptionPane.YES_OPTION)
+        {     
+            jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
+            String name=name_label_text.getText();
+            String email=email_label_text.getText();   
+            SQL sql=new SQL();
+            String query = String.format("DELETE from customer where name='%s' and email='%s';",name,email);
+            System.out.println(query);
+
+            try{
+                sql.updateQuery(query);
+
+            }
+            catch ( Exception e ) {
+                System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                return false;
+            }
+            name_label_text.setText("");
+            number_label_text.setText("");
+            address_label_text.setText("");
+            email_label_text.setText("");
+
+            ((JTextField) search_box.getEditor().getEditorComponent()).setText("");
+
+            JOptionPane.showMessageDialog(jframe, "Customer has been deleted succesfully"); 
+        }
+        selected = 0;
+        return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(jframe, "Select a Customer to Delete.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }*/
+            int id = sql.updateQuery(query);
+            if (id!=0) 
+            {
+                //message.setText(" Hello " + userName+ "");
+                // customer_email.setText("");,customer_name, cloth_data,image, priority, cos
+                // name_label_text
+                // number_label_text.setText("");
+                // address_label_text.setText("");
+                // email_label_text.setText("");
+                JOptionPane.showMessageDialog(jframe, "Order Placed. Your order ID is " + id); 
+                return true;
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(jframe, "Invalid details","Error",JOptionPane.ERROR_MESSAGE); 
+                //System.out.println("False");
+                //message.setText(" Invalid user.. ");
+                return false;
+            }
+
+        }
+       catch ( HeadlessException e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            JOptionPane.showMessageDialog(jframe, "ERROR!!","Error",JOptionPane.ERROR_MESSAGE); 
+            return false;
+        }
     }
 
     public JPanel newOrder() 

@@ -57,13 +57,12 @@ public class SQL {
        System.out.println("Opened database successfully");
        stmt = c.createStatement();
        rs = stmt.executeUpdate(query);
-       /*while ( rs.next() ) {
-         String  username = rs.getString("username");
-         String  password = rs.getString("password");  
-         System.out.println( username );
-         System.out.println(password);
-         System.out.println();
-       }*/
+       ResultSet val = stmt.getGeneratedKeys();
+       int id = 0;
+       while ( val.next() ) {
+         id = val.getInt(1);
+         System.out.println(id);
+       }
        
        //stmt.close();
        //c.close();
@@ -71,7 +70,7 @@ public class SQL {
        stmt.close();
        c.commit();
        c.close();
-       return rs;
+       return id;
        //else
        //return null;
        } 
