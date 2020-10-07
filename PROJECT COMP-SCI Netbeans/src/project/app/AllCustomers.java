@@ -18,18 +18,16 @@ public class AllCustomers extends javax.swing.JPanel {
 public static void main (String[]args)
 {
      AllCustomers obj=new AllCustomers();
-             
+       obj.initComponents();
+        obj.GetData();
+               
 
 }
 
     /**
      * Creates new form AllCustomers
      */
-    public AllCustomers() {
-        initComponents();
-        GetData();
-        setVisible(true);
-    }
+
     public void GetData() {
         setVisible(true);
         SQL sql = new SQL();
