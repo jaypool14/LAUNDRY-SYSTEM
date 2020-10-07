@@ -5,18 +5,84 @@
  */
 package project.app;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
  */
 public class AllCustomers extends javax.swing.JPanel {
+public static void main (String[]args)
+{
+     AllCustomers obj=new AllCustomers();
+             
+
+}
 
     /**
      * Creates new form AllCustomers
      */
     public AllCustomers() {
         initComponents();
+        GetData();
+        setVisible(true);
     }
+    public void GetData() {
+        setVisible(true);
+        SQL sql = new SQL();
+        String[] user_list = {};
+        String check_query =  "select * from customer;";
+        try
+            
+        {
+            System.out.println(check_query);
+            ResultSet rs =sql.execute(check_query, true);
+            ArrayList<String> user_array_list = new ArrayList<>();
+            int row=0;
+            
+                    
+            while (rs.next()) {
+                int col=0;
+                String  username = rs.getString("name");
+                jTable1.setValueAt(username, row, 0);
+                String  email = rs.getString("email");  
+                   jTable1.setValueAt(email, row, 1);
+                String  id = rs.getString("id");
+                   jTable1.setValueAt(id, row,4 );
+                String  address = rs.getString("address");  
+                   jTable1.setValueAt(address, row, 3);
+                String  number = rs.getString("number");  
+                   jTable1.setValueAt(number, row, 2);
+                   
+               addrow (jTable1);
+               row+=1;
+               
+                       
+                
+                
+            }
+            
+               
+            SQL.c.close();
+        }
+        catch ( Exception e ) 
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            //return false;
+        }
+      
+    }
+public boolean addrow(JTable table){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int last = model.getRowCount()-1;
+            model.addRow(new Object[]{"", "", "", "", ""});return true;
+
+        
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,22 +97,21 @@ public class AllCustomers extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setOpaque(false);
+
         jLabel1.setFont(new java.awt.Font("Century", 1, 36)); // NOI18N
         jLabel1.setText("ALL CUSTOMERS");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "NAME", "NUMBER", "ADDRESS", "EMAIL"
+                "NAME", "NUMBER", "ADDRESS", "EMAIL", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -60,14 +125,13 @@ public class AllCustomers extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))))
+                .addContainerGap(144, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
