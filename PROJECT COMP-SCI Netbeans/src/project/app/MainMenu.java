@@ -11,7 +11,7 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub, customer_sub2,new_employee,manage_employee, place_orders;
+    JMenuItem customer_sub, customer_sub2,customer_sub3, new_employee,manage_employee, place_orders, review_orders;
     
     
     public void initUI() {
@@ -37,6 +37,7 @@ public class MainMenu extends JFrame {
 
         customer_sub = new JMenuItem("ADD NEW CUSTOMER", exitIcon);
         customer_sub2 = new JMenuItem("VIEW CUSTOMERS", exitIcon);
+        customer_sub3 = new JMenuItem("ALL CUSTOMERS", exitIcon);
         
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
@@ -48,6 +49,8 @@ public class MainMenu extends JFrame {
         customer_menu.add(customer_sub);
         customer_menu.addSeparator();
         customer_menu.add(customer_sub2);
+        customer_menu.addSeparator();
+        customer_menu.add(customer_sub3);
         
         //THIS IS THE MENU FOR EMPLOYEES
         JMenu employee_menu = new JMenu("EMPLOYEES");
@@ -74,7 +77,7 @@ public class MainMenu extends JFrame {
         order_menu.setMnemonic(KeyEvent.VK_O);
 
         place_orders = new JMenuItem("PLACE ORDER", exitIcon);
-        JMenuItem review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
+        review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
         JMenuItem order_control = new JMenuItem("ORDER CONTROL", exitIcon);
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
@@ -83,7 +86,7 @@ public class MainMenu extends JFrame {
         order_control.setToolTipText("CAN CONTROL EXISTING ORDERS");
         
         // place_orders.addActionListener((event) -> System.exit(0));
-        review_orders.addActionListener((event) -> System.exit(0));
+        //review_orders.addActionListener((event) -> System.exit(0));
         order_control.addActionListener((event) -> System.exit(0));
         
         order_menu.add(place_orders);

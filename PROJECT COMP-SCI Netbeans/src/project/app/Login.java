@@ -116,9 +116,7 @@ public class Login extends JFrame{
         return false;
        }
     
-    }
-    
-        
+    }      
     public static void main(String[] args) {
         var login = new Login();
         login.initUI();

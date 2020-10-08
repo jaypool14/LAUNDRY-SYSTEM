@@ -70,7 +70,7 @@ public class PlaceOrder extends JFrame
         String image = "";
         String priority = (String)order_priority.getSelectedItem();
         String total_cost = total_cost_text.getText();
-        String query = String.format("INSERT INTO orders (customer_email,customer_name, cloth_data,image, priority, cost) VALUES ('%s','%s','%s','%s','%s','%s');", Details[0], Details[1], data, image, priority, total_cost);
+        String query = String.format("INSERT INTO orders (customer_email,customer_name, cloth_data,image, priority, cost) VALUES ('%s','%s','%s','%s','%s','%s');", Details[1], Details[0], data, image, priority, total_cost);
         System.out.println(query);
         
         try
@@ -119,7 +119,7 @@ public class PlaceOrder extends JFrame
                 // number_label_text.setText("");
                 // address_label_text.setText("");
                 // email_label_text.setText("");
-                JOptionPane.showMessageDialog(jframe, "Order Placed. Your order ID is " + id); 
+                JOptionPane.showMessageDialog(jframe, "Your Order has been placed.\nYour order ID is: " + id + "\nPlease check your Email for Invoice", "THANK YOU!", JOptionPane.INFORMATION_MESSAGE); 
                 return true;
             } 
             else 
@@ -204,10 +204,10 @@ public class PlaceOrder extends JFrame
         ((JTextField)cloth_type.getEditor().getEditorComponent()).setDisabledTextColor(Color.BLUE);
 
         //IMAGE OF LAUNDRY 
-        image_label = new JLabel();
-        image_label.setText("IMAGE :");
-        image_label.setForeground(Color.WHITE);
-        image_label.setFont(new Font("Century",Font.BOLD,20));
+        //image_label = new JLabel();
+        //image_label.setText("IMAGE :");
+        //image_label.setForeground(Color.WHITE);
+        //image_label.setFont(new Font("Century",Font.BOLD,20));
 
         //TOTAL COST
         total_cost_label = new JLabel();
@@ -283,13 +283,13 @@ public class PlaceOrder extends JFrame
         panel.add(delete_row,constraints);
         delete_row.addActionListener((event) -> deleterow (table));
 
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.gridx = 0;
-        constraints.gridy = 10;
-        panel.add(image_label,constraints);
+        //constraints.insets = new Insets(10, 10, 10, 10);
+        //constraints.gridx = 0;
+        //constraints.gridy = 10;
+        //panel.add(image_label,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 12;
+        constraints.gridy = 10;
         panel.add(order_priority_label,constraints);
 
         constraints.gridx = 1;
@@ -297,7 +297,7 @@ public class PlaceOrder extends JFrame
         panel.add(order_priority,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 14;
+        constraints.gridy = 12;
         panel.add(total_cost_label,constraints);
 
         constraints.gridx = 1;
@@ -305,7 +305,7 @@ public class PlaceOrder extends JFrame
 
         constraints.gridwidth = 2;
         constraints.gridx = 0;
-        constraints.gridy = 16;
+        constraints.gridy = 14;
         panel.add(place_order,constraints);
 
         //constraints.anchor = GridBagConstraints.NORTH;
