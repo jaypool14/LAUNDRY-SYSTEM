@@ -11,7 +11,7 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub, customer_sub2,customer_sub3, new_employee,manage_employee, place_orders, review_orders;
+    JMenuItem customer_sub, customer_sub2,customer_sub3, new_employee,manage_employee, place_orders, review_orders,all_employees;
     
     
     public void initUI() {
@@ -59,17 +59,21 @@ public class MainMenu extends JFrame {
 
         new_employee = new JMenuItem("ADD NEW EMPLOYEES", exitIcon);
         manage_employee = new JMenuItem("MANAGE EMPLOYEES", exitIcon);
-        
+        all_employees = new JMenuItem("ALL EMPLOYEES", exitIcon);
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
         new_employee.setToolTipText("CAN CREATE A NEW EMPLOYEE");
         manage_employee.setToolTipText("CAN VIEW EXISTING EMPLOYEES");
-        
+        manage_employee.setToolTipText("CAN VIEW ALL EXISTING EMPLOYEES TOGETHER");
+
         //new_employee.addActionListener((event) -> System.exit(0));
      
         employee_menu.add(new_employee);
         employee_menu.addSeparator();
         employee_menu.add(manage_employee);
+        employee_menu.addSeparator();
+        employee_menu.add(all_employees);
+         
          
         //THIS IS THE MENU FOR ORDERS
         JMenu order_menu = new JMenu("ORDERS");

@@ -72,7 +72,7 @@ public class NewJFrame extends javax.swing.JFrame {
         //</editor-fold>
         
         //j.initUI();
-        AllCustomers obj = new AllCustomers();
+        AllEmployees obj = new AllEmployees();
         JPanel jpanel = obj.initUI();
         j.add(jpanel);
         j.pack();

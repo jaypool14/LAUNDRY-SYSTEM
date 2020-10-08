@@ -48,6 +48,7 @@ public class WrapperClass extends JFrame
         main_menu.customer_sub3.addActionListener((event) -> allcustomer_action());
         main_menu.new_employee.addActionListener((event) -> newemployee_action());
         main_menu.manage_employee.addActionListener((event) -> viewemployee_action());
+        main_menu.all_employees.addActionListener((event) -> allemployees_action());
         main_menu.place_orders.addActionListener((event) -> placeorder_action());
         main_menu.review_orders.addActionListener((event) -> revieworder_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -219,7 +220,25 @@ public class WrapperClass extends JFrame
         details_panel.add(viewemployee,constraints);
         details_panel.updateUI();
         details_panel.setVisible(true); 
+        
+        
     }
+      public void allemployees_action()
+    {
+        AllEmployees all_employees = new AllEmployees();
+        JPanel allemployees= all_employees.initUI();
+     
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.BOTH;   
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+
+        details_panel.removeAll(); 
+        details_panel.add(allemployees,constraints);
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
+    }
+    
     
     public void placeorder_action()
     {
