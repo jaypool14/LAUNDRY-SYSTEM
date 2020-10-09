@@ -22,7 +22,10 @@ import javax.mail.internet.MimeMultipart;
 public class SendMail {
 
     public static void main(String[] args) {
-
+        SendMail obj = new SendMail();
+        obj.send_mail("This is the Subject Line!","<h1>This is actual message embedded in HTML tags</h1>");
+    }
+    public void send_mail(String sub, String msg){
         final String username = "jaypoollaundy@gmail.com";
         final String password = "jaypool1234";
 
@@ -50,25 +53,25 @@ public class SendMail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress("febinjose5172@gmail.com"));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject(sub);
+            message.setContent(msg,"text/html");
+            //Multipart multipart = new MimeMultipart();
 
-            Multipart multipart = new MimeMultipart();
+            //MimeBodyPart attachmentPart = new MimeBodyPart();
 
-            MimeBodyPart attachmentPart = new MimeBodyPart();
+            //MimeBodyPart textPart = new MimeBodyPart();
 
-            MimeBodyPart textPart = new MimeBodyPart();
+            //try {
 
-            try {
+            /*    //File f =new File("E:\\Trojan\\Blog\\LAUNDRY-SYSTEM\\PROJECT COMP-SCI Netbeans\\src\\project\\resources\\bill.html");
 
-                File f =new File("E:\\Trojan\\Blog\\LAUNDRY-SYSTEM\\PROJECT COMP-SCI Netbeans\\src\\project\\resources\\bill.html");
-
-                attachmentPart.attachFile(f);
+                //attachmentPart.attachFile(f);
                 // Send the actual HTML message.
                 message.setContent(
                 "<h1>This is actual message embedded in HTML tags</h1>",
                 "text/html");
-                multipart.addBodyPart(textPart);
-                multipart.addBodyPart(attachmentPart);
+                //multipart.addBodyPart(textPart);
+                //multipart.addBodyPart(attachmentPart);
 
             } catch (IOException e) {
 
@@ -77,7 +80,7 @@ public class SendMail {
             }
 
             // message.setContent(multipart);
-
+            */
             System.out.println("sending...");
             // Send message
             Transport.send(message);
@@ -85,7 +88,7 @@ public class SendMail {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-        /* 
+        /*
         try {
 
             Message message = new MimeMessage(session);
