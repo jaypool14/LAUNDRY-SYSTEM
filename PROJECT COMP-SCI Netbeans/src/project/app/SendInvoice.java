@@ -19,7 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-public class SendMail {
+public class SendInvoice {
 
     public static void main(String[] args) {
         SendMail obj = new SendMail();
