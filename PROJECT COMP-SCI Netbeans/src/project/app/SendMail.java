@@ -25,7 +25,7 @@ public class SendMail {
         SendMail obj = new SendMail();
         obj.send_mail("This is the Subject Line!","<h1>This is actual message embedded in HTML tags</h1>");
     }
-    public void send_mail(String sub, String msg){
+    public boolean send_mail(String sub, String msg){
         final String username = "jaypoollaundy@gmail.com";
         final String password = "jaypool1234";
 
@@ -87,7 +87,9 @@ public class SendMail {
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
+            return false;
         }
+         return true;
         /*
         try {
 
