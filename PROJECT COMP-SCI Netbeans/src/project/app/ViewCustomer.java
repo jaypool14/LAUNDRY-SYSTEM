@@ -140,7 +140,7 @@ public class ViewCustomer extends JFrame
         System.out.println(query);
         try
         {
-            if (sql.updateQuery(query)!=0) 
+            if (sql.updateQuery(query)==0) 
             {
                 //message.setText(" Hello " + userName+ "");
                 name_label_text.setText("");

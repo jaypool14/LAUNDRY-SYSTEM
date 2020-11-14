@@ -28,8 +28,8 @@ import javax.swing.JScrollPane;
 
 public class ViewEmployee extends JFrame
 {   JPanel panel;
-    JLabel search_label,title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message;
-    JTextField search_label_text,name_label2_text,number_label2_text,email_label2_text,joindate_label_text;
+    JLabel search_label,title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message, salary_label;
+    JTextField search_label_text,name_label2_text,number_label2_text,email_label2_text,joindate_label_text, salary_text;
     JTextArea address_label_text;
     JPasswordField password_text;
     JButton search,edit,delete,save;
@@ -69,6 +69,8 @@ public class ViewEmployee extends JFrame
                 number_label2_text.setText(number);
                 String email = rs.getString("email");
                 email_label2_text.setText(email);
+                String salary = rs.getString("salary");
+                salary_text.setText(salary);
 
                 String joindate_value = rs.getString("joindate");
                 System.out.println("join date" +joindate_value);
@@ -85,6 +87,7 @@ public class ViewEmployee extends JFrame
                 name_label2_text.setEnabled(false);
                 number_label2_text.setEnabled(false);
                 email_label2_text.setEnabled(false);
+                salary_text.setEnabled(false);
                 //joindate_label_text.setEnabled(false);
                 desiglist.setEnabled(false);
 
@@ -116,6 +119,7 @@ public class ViewEmployee extends JFrame
             name_label2_text.setEnabled(true);
             number_label2_text.setEnabled(true);
             email_label2_text.setEnabled(true);
+            salary_text.setEnabled(true);
             //joindate_label_text.setEnabled(true);
             desiglist.setEnabled(true);
             edit.setVisible(false);
@@ -135,6 +139,7 @@ public class ViewEmployee extends JFrame
         String Name = name_label2_text.getText();
         String Number =  number_label2_text.getText();
         String Email =  email_label2_text.getText();
+        String salary = salary_text.getText();
         // ------------
         Date selectedDate = (Date) joindate.getModel().getValue();
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -142,6 +147,7 @@ public class ViewEmployee extends JFrame
         System.out.println("Date is : "+datestr);
         String desiglist2=((JTextField) desiglist.getEditor().getEditorComponent()).getText();
         //-----------------
+        boolean salary_check = Pattern.matches("[0-9]+", Number);
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
         boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
         if (num_check == false)
@@ -155,11 +161,13 @@ public class ViewEmployee extends JFrame
             return false;
         }    
 
-        String query = String.format("UPDATE EMPLOYEE set name = '%s', number= '%s',email ='%s',joindate='%s',designation='%s' where ID=%s", Name, Number,Email,datestr,desiglist2,ID);
+        String query = String.format("UPDATE EMPLOYEE set name = '%s', number= '%s',email ='%s',joindate='%s',designation='%s', salary='%s' where ID=%s", Name, Number,Email,datestr,desiglist2,salary,ID);
         System.out.println(query);
         try
         {
-            if (0!=sql.updateQuery(query)) 
+            int val = sql.updateQuery(query);
+            System.out.println(val);
+            if (0==val) 
             {
                 //message.setText(" Hello " + userName+ "");
                 name_label2_text.setText("");
@@ -288,6 +296,14 @@ public class ViewEmployee extends JFrame
         designation_label.setForeground(Color.WHITE);
         designation_label.setFont(new Font("Century",Font.BOLD,20));
         ((JTextField)desiglist.getEditor().getEditorComponent()).setDisabledTextColor(Color.BLUE);
+        
+        //EMAIL
+        salary_label = new JLabel();
+        salary_label.setText("SALARY :");
+        salary_label.setForeground(Color.WHITE);
+        salary_label.setFont(new Font("Century",Font.BOLD,20));
+        salary_text = new JTextField(20);
+        salary_text.setDisabledTextColor(Color.BLUE);
 
         // SubmitButton
         search = new JButton("SEARCH");
@@ -300,55 +316,63 @@ public class ViewEmployee extends JFrame
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 1;
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         panel.add(search,constraints);
 
         constraints.gridx = 1;
         panel.add(search_box,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 5;
         panel.add(name_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(name_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 8;
+        constraints.gridy = 7;
         panel.add(number_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(number_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 14;
+        constraints.gridy = 15;
         panel.add(email_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 10;
+        constraints.gridy = 9;
         panel.add(designation_label,constraints);
-
         constraints.gridx = 1;
         panel.add(desiglist,constraints);
         constraints.gridx = 0;
-        constraints.gridy = 12;
+        
+        constraints.gridy = 11;
+        panel.add(salary_label,constraints);
+
+        constraints.gridx = 1;
+        panel.add(salary_text,constraints);
+
+       
+        constraints.gridx = 0;
+        constraints.gridy = 13;
         panel.add(joindate_label,constraints);
 
         constraints.gridx = 1;
         panel.add(joindate,constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 16;
+        constraints.gridy = 17;
 
         constraints.insets = new Insets(5, 20, 5, 20);
         constraints.gridwidth = 2;
         panel.add(edit,constraints);
         constraints.gridy = 16;
         panel.add(save,constraints);
-        constraints.gridy = 18;
+        constraints.gridy = 19;
         constraints.gridx = 1;
         panel.add(delete,constraints);
 

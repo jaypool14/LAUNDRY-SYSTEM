@@ -28,8 +28,8 @@ import javax.swing.JScrollPane;
 public class NewEmployee extends JFrame
 {   
     JPanel panel;
-    JLabel title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message;
-    JTextField name_label2_text,number_label2_text,email_label2_text,joindate_label_text;
+    JLabel title_label2,name_label2,number_label2,email_label2,joindate_label,designation_label,message, salary_label;
+    JTextField name_label2_text,number_label2_text,email_label2_text,joindate_label_text, salary_text;
     JButton submit, cancel;
     JComboBox desiglist;
     JDatePickerImpl joindate;
@@ -70,6 +70,13 @@ public class NewEmployee extends JFrame
         number_label2.setForeground(Color.WHITE);
         number_label2.setFont(new Font("Century",Font.BOLD,20));
         number_label2_text = new JTextField(20);
+        
+         // NUMBER
+        salary_label = new JLabel();
+        salary_label.setText("SALARY :");
+        salary_label.setForeground(Color.WHITE);
+        salary_label.setFont(new Font("Century",Font.BOLD,20));
+        salary_text = new JTextField(20);
 
         //EMAIL
         email_label2 = new JLabel();
@@ -103,42 +110,49 @@ public class NewEmployee extends JFrame
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 1;
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         panel.add(name_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(name_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 5;
         panel.add(number_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(number_label2_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 8;
+        constraints.gridy = 7;
         panel.add(designation_label,constraints);
 
         constraints.gridx = 1;
         panel.add(desiglist,constraints);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 9;
+        panel.add(salary_label,constraints);
+
+        constraints.gridx = 1;
+        panel.add(salary_text,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 10;
+        constraints.gridy = 11;
         panel.add(joindate_label,constraints);
 
         constraints.gridx = 1;
         panel.add(joindate,constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 12;
+        constraints.gridy = 13;
         panel.add(email_label2,constraints);
 
         constraints.gridx = 1;
         panel.add(email_label2_text,constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 14;
+        constraints.gridy = 15;
 
         panel.add(submit,constraints);
 
@@ -182,6 +196,7 @@ public class NewEmployee extends JFrame
         String Number = number_label2_text.getText();
         String Email = email_label2_text.getText();
         String Designation= (String)desiglist.getSelectedItem();
+        String salary = salary_text.getText();
         // ------------
         Date selectedDate = (Date) joindate.getModel().getValue();
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -191,6 +206,7 @@ public class NewEmployee extends JFrame
         //joindate.getModel().setSelected(true);
         // ------------
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
+        boolean sal_check = Pattern.matches("[0-9]+", salary);
         boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
         if (num_check == false)
         {
@@ -202,7 +218,11 @@ public class NewEmployee extends JFrame
             JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
+        if (sal_check == false)
+        {
+            JOptionPane.showMessageDialog(jframe, "Invalid Salary. Try again","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         String check_query = String.format("SELECT * FROM EMPLOYEE WHERE NAME='%s' AND EMAIL='%s';", Name, Email);
         try
         {
@@ -220,8 +240,8 @@ public class NewEmployee extends JFrame
             return false;
         }
 
-        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION) VALUES ('%s','%s','%s','%s','%s');",
-                                      Name, Number, Email,datestr,Designation);   
+        String query = String.format("INSERT INTO EMPLOYEE (NAME,NUMBER,EMAIL,JOINDATE,DESIGNATION,SALARY) VALUES ('%s','%s','%s','%s','%s','%s');",
+                                      Name, Number, Email,datestr,Designation, salary);   
         System.out.println(query);
         try
         {
@@ -230,6 +250,7 @@ public class NewEmployee extends JFrame
                 name_label2_text.setText("");
                 number_label2_text.setText("");
                 email_label2_text.setText("");
+                salary_text.setText("");
                 //joindate_label_text.setText("");
                 ((JTextField) desiglist.getEditor().getEditorComponent()).setText("");
                 joindate.getModel().setSelected(false);

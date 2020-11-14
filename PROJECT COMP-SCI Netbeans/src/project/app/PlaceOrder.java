@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.DefaultCellEditor;
 import javax.swing.event.TableModelEvent;
 import java.util.Arrays;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 
 public class PlaceOrder extends JFrame
 {
@@ -70,7 +72,10 @@ public class PlaceOrder extends JFrame
         String image = "";
         String priority = (String)order_priority.getSelectedItem();
         String total_cost = total_cost_text.getText();
-        String query = String.format("INSERT INTO orders (customer_email,customer_name, cloth_data,image, priority, cost) VALUES ('%s','%s','%s','%s','%s','%s');", Details[1], Details[0], data, image, priority, total_cost);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+        LocalDateTime now = LocalDateTime.now();  
+        String date = dtf.format(now); 
+        String query = String.format("INSERT INTO orders (customer_email,customer_name, cloth_data,image, priority, cost, date) VALUES ('%s','%s','%s','%s','%s','%s','%s');", Details[1], Details[0], data, image, priority, total_cost,date);
         System.out.println(query);
         
         try
@@ -119,6 +124,7 @@ public class PlaceOrder extends JFrame
                 // number_label_text.setText("");
                 // address_label_text.setText("");
                 // email_label_text.setText("");
+                //clearTable(table);
                 JOptionPane.showMessageDialog(jframe, "Your Order has been placed.\nYour order ID is: " + id + "\nPlease check your Email for Invoice", "THANK YOU!", JOptionPane.INFORMATION_MESSAGE); 
                 return true;
             } 
