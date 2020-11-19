@@ -11,7 +11,7 @@ import javax.swing.Box;
 
 
 public class MainMenu extends JFrame {
-    JMenuItem customer_sub, customer_sub2,customer_sub3, new_employee,manage_employee, place_orders, review_orders,all_employees;
+    JMenuItem customer_sub, customer_sub2,customer_sub3, new_employee,manage_employee, place_orders, review_orders,all_employees,all_orders,transactions;
     
     
     public void initUI() {
@@ -82,45 +82,43 @@ public class MainMenu extends JFrame {
 
         place_orders = new JMenuItem("PLACE ORDER", exitIcon);
         review_orders = new JMenuItem("REVIEW ORDERS", exitIcon);
-        JMenuItem order_control = new JMenuItem("ORDER CONTROL", exitIcon);
+       all_orders = new JMenuItem("ORDER HISTORY", exitIcon);
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
         place_orders.setToolTipText("CAN CREATE A NEW ORDER");
         review_orders.setToolTipText("CAN REVIEW EXISTING ORDERS");
-        order_control.setToolTipText("CAN CONTROL EXISTING ORDERS");
+        all_orders.setToolTipText("CAN VIEW ALL ORDERS");
         
         // place_orders.addActionListener((event) -> System.exit(0));
         //review_orders.addActionListener((event) -> System.exit(0));
-        order_control.addActionListener((event) -> System.exit(0));
+        //all_orders.addActionListener((event) -> System.exit(0));
         
         order_menu.add(place_orders);
         order_menu.addSeparator();
         order_menu.add(review_orders);
         order_menu.addSeparator();
-        order_menu.add(order_control);
+        order_menu.add(all_orders);
       
         //THIS IS THE MENU FOR FINANCE
         JMenu finance = new JMenu("FINANCE");
         
         finance.setMnemonic(KeyEvent.VK_F);
 
-        JMenuItem costs = new JMenuItem("COSTS", exitIcon);
-        JMenuItem income = new JMenuItem("INCOME", exitIcon);
+                  transactions = new JMenuItem("TRANSACTIONS", exitIcon);
+     
         JMenuItem cash_flow = new JMenuItem("CASH FLOW STATEMENT", exitIcon);
         
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
-        costs.setToolTipText("CAN ENTER COSTS");
-        income.setToolTipText("CAN ENTER INCOME");
-        cash_flow.setToolTipText("CAN CREATE CASH FLOW STATEMENT");
+        transactions.setToolTipText("CAN ENTER AND VIEW FINANCES");
+  
+        cash_flow.setToolTipText("CAN VIEW CASH FLOW STATEMENT");
         
-        costs.addActionListener((event) -> System.exit(0));
-        income.addActionListener((event) -> System.exit(0));
+        
         cash_flow.addActionListener((event) -> System.exit(0));
         
-        finance.add(costs);
+        finance.add(transactions);
         finance.addSeparator();
-        finance.add(income);
-        finance.addSeparator();
+       
         finance.add(cash_flow);
         
         //THIS IS THE MENU FOR ADDITIONAL INFORMATION
