@@ -41,7 +41,7 @@ package project.app;
     public class SendEmail{    
      public static void main(String[] args) {    
          //from,password,to,subject,message  
-         Mailer.send("jaypoollaundy@gmail.com","jaypool1234","febinjose5172@gmail.com","hello javatpoint","How r u?");  
+         Mailer.send("rosedrycleaners0@gmail.com","jaypool2003","febinjose5172@gmail.com","hello javatpoint","How r u?");  
          //change from, password and to  
      }    
     }    

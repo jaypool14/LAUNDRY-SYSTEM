@@ -36,7 +36,7 @@ public class PlaceOrder extends JFrame
     JButton place_order,add_row,delete_row;
 
     JComboBox search_box,cloth_type,order_priority;
-    String[] CLOTHES = { "UNDERGAMRNETS", "JEANS", "SHORTS","PANTS","SKIRTS","TSHIRT","SHIRT","BLANKETS","SUIT","EHTNIC"};
+    String[] CLOTHES = {"UNDERGAMRNETS", "JEANS", "SHORTS","PANTS","SKIRTS","TSHIRT","SHIRT","BLANKETS","SUIT","EHTNIC"};
     int[] PRICE = {30,50,40,60,50,40,60,100,100,150};
     double priority = 1.0;
 
@@ -126,6 +126,9 @@ public class PlaceOrder extends JFrame
                 // email_label_text.setText("");
                 //clearTable(table);
                 JOptionPane.showMessageDialog(jframe, "Your Order has been placed.\nYour order ID is: " + id + "\nPlease check your Email for Invoice", "THANK YOU!", JOptionPane.INFORMATION_MESSAGE); 
+                // send mail
+                SendMail obj = new SendMail();
+                obj.create_bill(id);
                 return true;
             } 
             else 

@@ -26,8 +26,8 @@ public class SendInvoice {
         obj.send_mail("This is the Subject Line!","<h1>This is actual message embedded in HTML tags</h1>");
     }
     public boolean send_mail(String sub, String msg){
-        final String username = "jaypoollaundy@gmail.com";
-        final String password = "jaypool1234";
+        final String username = "rosedrycleaners0@gmail.com";
+        final String password = "jaypool2003";
 
         Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");

@@ -53,6 +53,7 @@ public class WrapperClass extends JFrame
         main_menu.review_orders.addActionListener((event) -> revieworder_action());
         main_menu.all_orders.addActionListener((event) -> allorders_action());
         main_menu.transactions.addActionListener((event) -> transactions_action());
+        main_menu.mail_menu.addActionListener((event) -> mail_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
         
@@ -321,7 +322,21 @@ public void transactions_action()
         details_panel.updateUI();
         details_panel.setVisible(true); 
     }
+public void mail_action()
+    {
+        Mail mail = new Mail();
+        JPanel mail_panel= mail.initUI();
+        mail.setlistners(this);
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.BOTH;   
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
 
+        details_panel.removeAll(); 
+        details_panel.add(mail_panel,constraints);
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
+    }
 
 
     public void set_background()
