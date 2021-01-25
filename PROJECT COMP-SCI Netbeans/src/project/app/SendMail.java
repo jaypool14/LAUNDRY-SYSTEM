@@ -227,6 +227,7 @@ public class SendMail {
         
         String[] CLOTHES = {"UNDERGAMRNETS", "JEANS", "SHORTS", "PANTS", "SKIRTS", "TSHIRT", "SHIRT", "BLANKETS", "SUIT", "EHTNIC"};
         String cloth_bill_data="";
+        String email="";
         int[] PRICE = {30, 50, 40, 60, 50, 40, 60, 100, 100, 150};
         SQL sql = new SQL();
         String query = String.format("SELECT * FROM orders WHERE id=%s", id);
@@ -235,7 +236,7 @@ public class SendMail {
             ResultSet rs = sql.execute(query, true);
             if (rs.next()) {
                 String cloth_data = rs.getString("cloth_data");
-                String email = rs.getString("customer_email");
+                 email = rs.getString("customer_email");
                 String cost = rs.getString("cost");
                 String[] cloths = cloth_data.split(",");
                 
@@ -275,10 +276,10 @@ public class SendMail {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             
         }
-        send_mail("Your INVOICE for ORDER " + Integer.toString(id),cloth_bill_data);
+        send_mail("Your INVOICE for ORDER " + Integer.toString(id),cloth_bill_data,email);
     }
 
-    public boolean send_mail(String sub, String msg) {
+    public boolean send_mail(String sub, String msg,String email) {
         final String username = "rosedrycleaners0@gmail.com";
         final String password = "jaypool2003";
 
@@ -303,7 +304,7 @@ public class SendMail {
             message.setFrom(new InternetAddress(username));
 
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("febinjose5172@gmail.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             // Set Subject: header field
             message.setSubject(sub);
