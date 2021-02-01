@@ -23,7 +23,7 @@ public class SendInvoice {
 
     public static void main(String[] args) {
         SendMail obj = new SendMail();
-        obj.send_mail("This is the Subject Line!","<h1>This is actual message embedded in HTML tags</h1>");
+        obj.send_mail("This is the Subject Line!","<h1>This is actual message embedded in HTML tags</h1>","");
     }
     public boolean send_mail(String sub, String msg){
         final String username = "rosedrycleaners0@gmail.com";

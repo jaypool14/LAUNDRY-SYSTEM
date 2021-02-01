@@ -37,11 +37,11 @@ public class Mail extends javax.swing.JPanel {
     int i;
     SendMail obj = new SendMail();
     if (m_to.equals("CUSTOMERS"))
-        obj.send_mail("IMPORTANT INFO FOR ROSE LAUNDRY CUSTOMER",message_to_send);
+        obj.send_mail("IMPORTANT INFO FOR ROSE LAUNDRY CUSTOMER",message_to_send,"joseph.parel@pathways.in");
     else if (m_to.equals("EMPLOYEES"))
-        obj.send_mail("IMPORTANT INFO FOR ROSE LAUNDRY EMPLOYEE",message_to_send);
+        obj.send_mail("IMPORTANT INFO FOR ROSE LAUNDRY EMPLOYEE",message_to_send,"joseph.parel@pathways.in");
     else
-        obj.send_mail("ROSE LAUNDRY",message_to_send);
+        obj.send_mail("ROSE LAUNDRY",message_to_send,"joseph.parel@pathways.in");
     }
 
     /**

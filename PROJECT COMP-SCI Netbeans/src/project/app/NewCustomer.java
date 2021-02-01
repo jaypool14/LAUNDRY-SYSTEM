@@ -158,7 +158,7 @@ public class NewCustomer extends JFrame
         String Number =  number_label_text.getText();
         String Email =  email_label_text.getText();
         boolean num_check = Pattern.matches("[0-9]{10}", Number);
-        boolean mail_check = Pattern.matches("[a-zA-Z_]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
+        boolean mail_check = Pattern.matches("[a-zA-Z_0-9.]+@[a-z]{1,10}\\.[a-z]{2,3}", Email);
         if (num_check == false)
         {
             JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again","Error",JOptionPane.ERROR_MESSAGE);

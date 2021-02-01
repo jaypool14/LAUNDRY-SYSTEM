@@ -342,7 +342,7 @@ public void mail_action()
     public void set_background()
     {
         // ######## Setting background
-        String BACKHGROUND_IMAGE_URL = "./src/project/resources/background3.jpeg";
+        String BACKHGROUND_IMAGE_URL = "./src/project/resources/background2.jpeg";
         final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
         BufferedImage img = null;
         try {
