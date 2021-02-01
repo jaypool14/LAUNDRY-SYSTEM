@@ -284,14 +284,15 @@ public class PlaceOrder extends JFrame
         constraints.gridwidth = 1;
         constraints.gridx = 1;
         constraints.gridy = 8;
-        panel.add(add_row,constraints);
-        add_row.addActionListener((event) -> addrow (table));
-
-        constraints.gridx = 0;
-        constraints.gridy = 8;
         panel.add(delete_row,constraints);
         delete_row.addActionListener((event) -> deleterow (table));
 
+        constraints.gridx = 0;
+        constraints.gridy = 8;
+        panel.add(add_row,constraints);
+        add_row.addActionListener((event) -> addrow (table));
+
+        
         //constraints.insets = new Insets(10, 10, 10, 10);
         //constraints.gridx = 0;
         //constraints.gridy = 10;

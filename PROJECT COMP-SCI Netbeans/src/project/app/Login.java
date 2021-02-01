@@ -5,6 +5,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 import javax.swing.JButton;
@@ -15,6 +19,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.sql.ResultSet;
 import java.util.regex.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Login extends JFrame{
 
@@ -51,25 +57,45 @@ public class Login extends JFrame{
         // SubmitButton
         submit = new JButton("LOGIN");
         
-                
+         String BACKHGROUND_IMAGE_URL = "./src/project/resources/logo.png";
+        final ImageIcon backgroundImage = new ImageIcon(BACKHGROUND_IMAGE_URL);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(BACKHGROUND_IMAGE_URL));
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        //Image dimg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        //ImageIcon imageIcon = new ImageIcon(dimg);
+        JLabel picLabel = new JLabel(new ImageIcon(img));
+        
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.weighty = 1;
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        panel.add(picLabel,constraints);
+        
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 1;
         constraints.gridx = 0;
-        constraints.gridy = 0;
+        constraints.gridy = 1;
         panel.add(user_label,constraints);
         
         constraints.gridx = 1;
         panel.add(userName_text,constraints);
         
         constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         panel.add(password_label,constraints);
         
         constraints.gridx = 1;
         panel.add(password_text,constraints);
 
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         //constraints.weighty = 1;
         //constraints.anchor = GridBagConstraints.CENTER;
         panel.add(submit,constraints);

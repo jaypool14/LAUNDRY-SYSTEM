@@ -45,23 +45,25 @@ public class InflowsOutflows extends javax.swing.JPanel {
         SQL sql = new SQL();
         String query = String.format("SELECT cost FROM orders WHERE date like '___%s'", date);
         System.out.println(query);
-        int revenue_num=0,wages_num=0;
+        int revenue_num = 0, wages_num = 0;
         try {
             ResultSet rs = sql.execute(query, true);
             while (rs.next()) {
-                if (rs.getString("cost") != null)
-                revenue_num += (int)Float.parseFloat(rs.getString("cost"));
+                if (rs.getString("cost") != null) {
+                    revenue_num += (int) Float.parseFloat(rs.getString("cost"));
+                }
             }
             sql.c.close();
             rs.close();
             query = String.format("select salary from employee");
             rs = sql.execute(query, true);
             while (rs.next()) {
-                if (rs.getString("salary") != null)
-                wages_num += (int)Float.parseFloat(rs.getString("salary"));
+                if (rs.getString("salary") != null) {
+                    wages_num += (int) Float.parseFloat(rs.getString("salary"));
+                }
             }
             sql.c.close();
-                rs.close();
+            rs.close();
         } catch (NumberFormatException | SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -70,7 +72,7 @@ public class InflowsOutflows extends javax.swing.JPanel {
         query = String.format("SELECT * FROM INFLOW WHERE date='%s'", date);
 
         System.out.println(query);
-        String totalinflow = "0",totaloutflow = "0";
+        String totalinflow = "0", totaloutflow = "0",netcash="";
         try {
             ResultSet rs = sql.execute(query, true);
             if (rs.next()) {
@@ -80,8 +82,8 @@ public class InflowsOutflows extends javax.swing.JPanel {
                 customer_gifts.setText(customer_gift2);
                 String other_revenue2 = rs.getString("other_revenue");
                 other_revenue.setText(other_revenue2);
-                totalinflow = Integer.toString(revenue_num + Integer.parseInt(loans2) + 
-                        Integer.parseInt(customer_gift2) + Integer.parseInt(other_revenue2));
+                totalinflow = Integer.toString(revenue_num + Integer.parseInt(loans2)
+                        + Integer.parseInt(customer_gift2) + Integer.parseInt(other_revenue2));
                 total_inflows.setText(totalinflow);
                 sql.c.close();
                 rs.close();
@@ -139,11 +141,30 @@ public class InflowsOutflows extends javax.swing.JPanel {
         }
         total_inflows.setText(totalinflow);
         total_outflows.setText(totaloutflow);
-                netcashflow.setText("");
-        String netcash = Integer.toString(Integer.parseInt(totalinflow)
-                        - Integer.parseInt(totaloutflow));
-                netcashflow.setText(netcash);
-
+        netcashflow.setText("");
+        netcash = Integer.toString(Integer.parseInt(totalinflow)
+                - Integer.parseInt(totaloutflow));
+        netcashflow.setText(netcash);
+        String query_exec = "";
+        query = String.format("SELECT * FROM cashflow WHERE date='%s'", date);
+        System.out.println(query);
+        try {
+            ResultSet rs = sql.execute(query, true);
+            if (rs.next()) {
+                query_exec = String.format("UPDATE cashflow set inflow = '%s', outflow= '%s',NET_CASH_FLOW ='%s' where date='%s'", totalinflow, totaloutflow, netcash, date);
+            } else {
+                query_exec = String.format("INSERT INTO cashflow (inflow,outflow,net_cash_flow,date) VALUES('%s','%s','%s','%s')", totalinflow, totaloutflow, netcash, date);
+            }
+            sql.c.close();
+            rs.close();
+            sql = new SQL();
+            System.out.println(query_exec);
+            sql.updateQuery(query_exec);
+            sql.c.close();
+            rs.close();
+        } catch (NumberFormatException | SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
 
     public boolean editaction() {
@@ -293,6 +314,7 @@ public class InflowsOutflows extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
 
+        setForeground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -300,18 +322,22 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 11, -1, 79));
 
         jLabel3.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("REVENUE ");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 160, -1, 25));
 
         jLabel4.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("OTHER REVENUE");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 191, -1, 35));
 
         jLabel5.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("LOANS");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 232, -1, 25));
 
         jLabel6.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("CUSTOMER GIFTS");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 275, -1, 26));
 
@@ -339,22 +365,27 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(customer_gifts, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 280, 89, -1));
 
         jLabel8.setFont(new java.awt.Font("Century", 1, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("INFLOWS");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 96, -1, 53));
 
         jLabel9.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("EMPLOYEE WAGES");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, 28));
 
         jLabel10.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("ELCETRICITY COSTS");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, 14));
 
         jLabel11.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("RENT COSTS");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, -1, 22));
 
         jLabel12.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("OTHER COSTS");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, -1, -1));
         add(other_costs, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 80, -1));
@@ -376,6 +407,7 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(employee_wages, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 80, -1));
 
         jLabel13.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("TOTAL INFLOWS");
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 314, -1, 29));
 
@@ -390,10 +422,12 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(total_outflows, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 80, -1));
 
         jLabel14.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("TOTAL OUTFLOWS");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("NET CASH FLOW");
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 374, -1, 20));
 
@@ -419,10 +453,12 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 439, 100, -1));
 
         jLabel16.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("YEAR");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 37, -1, 53));
 
         jLabel17.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("MONTH");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 37, -1, 53));
 
@@ -438,10 +474,12 @@ public class InflowsOutflows extends javax.swing.JPanel {
         add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 55, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("LOAN PAYMENT");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, 32));
 
         jLabel18.setFont(new java.awt.Font("Century", 1, 36)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("OUTFLOWS");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, -1, 53));
     }// </editor-fold>//GEN-END:initComponents

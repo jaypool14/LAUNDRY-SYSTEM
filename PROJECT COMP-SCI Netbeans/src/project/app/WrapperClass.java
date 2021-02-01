@@ -54,6 +54,7 @@ public class WrapperClass extends JFrame
         main_menu.all_orders.addActionListener((event) -> allorders_action());
         main_menu.transactions.addActionListener((event) -> transactions_action());
         main_menu.mail_menu.addActionListener((event) -> mail_action());
+        main_menu.cash_flow.addActionListener((event) -> cashflow_action());
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //menuBar.add(Box.createRigidArea(new Dimension(1000,0)));
         
@@ -91,7 +92,7 @@ public class WrapperClass extends JFrame
         //details_panel.setPreferredSize(new Dimension(300,500));
         details_panel.setVisible(true);
         details_panel.setOpaque(false);
-        setTitle("LAUNDRY MANAGEMENT SYSTEM");
+        setTitle("EazyLaundry");
 
         JScrollPane panelPane = new JScrollPane(mainPanel);
         //add(panelPane, BorderLayout.CENTER);
@@ -322,6 +323,21 @@ public void transactions_action()
         details_panel.updateUI();
         details_panel.setVisible(true); 
     }
+public void cashflow_action()
+    {
+        CashFlow cashflow = new CashFlow();
+        JPanel cash_flow= cashflow.initUI();
+        constraints.anchor = GridBagConstraints.NORTH;
+        constraints.fill = GridBagConstraints.BOTH;   
+        constraints.gridx = 0;
+        constraints.gridy = 0;   
+
+        details_panel.removeAll(); 
+        details_panel.add(cash_flow,constraints);
+        details_panel.updateUI();
+        details_panel.setVisible(true); 
+    }
+
 public void mail_action()
     {
         Mail mail = new Mail();

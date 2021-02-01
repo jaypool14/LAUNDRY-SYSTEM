@@ -93,22 +93,13 @@ public boolean addrow(JTable table){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
 
         setOpaque(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
-        jTextField1.setText("ORDER HISTORY");
-        jTextField1.setOpaque(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,16 +115,21 @@ public boolean addrow(JTable table){
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 710, 325));
-    }// </editor-fold>//GEN-END:initComponents
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 730, -1));
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Century", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ORDER HISTORY");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+    }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

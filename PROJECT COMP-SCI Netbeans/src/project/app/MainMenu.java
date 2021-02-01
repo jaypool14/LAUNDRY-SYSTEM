@@ -12,7 +12,7 @@ import javax.swing.Box;
 
 public class MainMenu extends JFrame {
 
-    JMenuItem customer_sub, customer_sub2, customer_sub3, new_employee, manage_employee, place_orders, review_orders, all_employees, all_orders, transactions, mail_menu;
+    JMenuItem customer_sub, customer_sub2, customer_sub3, new_employee, manage_employee, place_orders, review_orders, all_employees, all_orders, transactions, mail_menu,cash_flow;
 
     public void initUI() {
 
@@ -102,14 +102,14 @@ public class MainMenu extends JFrame {
 
         transactions = new JMenuItem("TRANSACTIONS", exitIcon);
 
-        JMenuItem cash_flow = new JMenuItem("CASH FLOW STATEMENT", exitIcon);
+        cash_flow = new JMenuItem("CASH FLOW STATEMENT", exitIcon);
 
         //eMenuItem.setMnemonic(KeyEvent.VK_E);
         transactions.setToolTipText("CAN ENTER AND VIEW FINANCES");
 
         cash_flow.setToolTipText("CAN VIEW CASH FLOW STATEMENT");
 
-        cash_flow.addActionListener((event) -> System.exit(0));
+        // cash_flow.addActionListener((event) -> System.exit(0));
 
         finance.add(transactions);
         finance.addSeparator();
