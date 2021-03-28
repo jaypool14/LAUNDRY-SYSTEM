@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package project.app;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,98 +8,74 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author user
- */
 public class ReviewOrder extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ReviewOrder
-     */
-    public JPanel initUI()
-     {
-      initComponents();
-      //GetData();
-      return(this);
-     
-     }
-     public void setlistners(JFrame jframe)
-    {
-        view.addActionListener((event) -> GetData (id_text.getText()));
+    public JPanel initUI() {
+        initComponents();
+        return (this);
     }
+
+    public void setlistners(JFrame jframe) {
+        view.addActionListener((event) -> GetData(id_text.getText()));
+    }
+
     public boolean GetData(String order) {
         clearTable(jTable1);
         setVisible(true);
         SQL sql = new SQL();
-        String check_query =  String.format("select * from orders where id='%s';", order);
-        try 
-        {
+        String check_query = String.format("select * from orders where id='%s';", order);
+        try {
             System.out.println(check_query);
-            ResultSet rs =sql.execute(check_query, true);
-            int row=0;
-            int err=0;
+            ResultSet rs = sql.execute(check_query, true);
+            int row = 0;
+            int err = 0;
             while (rs.next()) {
-                err=1;
-                String  username = rs.getString("customer_name");
-                String  email = rs.getString("customer_email");  
+                err = 1;
+                String username = rs.getString("customer_name");
+                String email = rs.getString("customer_email");
                 cus_text.setText(username + ":" + email);
-                String  id = rs.getString("id");
-                //id_text.setText(id);
-                String  priority = rs.getString("priority");  
+                String id = rs.getString("id");
+                String priority = rs.getString("priority");
                 prio_text.setText(priority);
-                String  cost = rs.getString("cost");  
+                String cost = rs.getString("cost");
                 cost_text.setText(cost);
-                String  date = rs.getString("date");  
+                String date = rs.getString("date");
                 date_text.setText(date);
-                
-                String  cloth_data = rs.getString("cloth_data"); 
-                String[] Details=cloth_data.split(",");
+                String cloth_data = rs.getString("cloth_data");
+                String[] Details = cloth_data.split(",");
                 System.out.print(Arrays.toString(Details));
-                row =0;
-                for(int i=0;i<Details.length;i++)
-                {
-                    addrow (jTable1);
+                row = 0;
+                for (int i = 0; i < Details.length; i++) {
+                    addrow(jTable1);
                     System.out.println(Details[i]);
                     String[] data = Details[i].split("=");
                     jTable1.setValueAt(data[0], row, 0);
                     jTable1.setValueAt(data[1], row, 1);
-                    row+=1;   
+                    row += 1;
                 }
-                //jTable1.setValueAt(address, row, 3);
-                   
-               //addrow (jTable1);   
             }
             SQL.c.close();
-            if (err == 0)
-            {
-                //System.out.println(err);
-                JOptionPane.showMessageDialog(this, "No Such Order","Error",JOptionPane.ERROR_MESSAGE);
+            if (err == 0) {
+                JOptionPane.showMessageDialog(this, "No Such Order", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
-        catch ( Exception e ) 
-        {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            //return false;
-        }
-      return true;
+        return true;
     }
-public boolean addrow(JTable table){
+
+    public boolean addrow(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int last = model.getRowCount()-1;
-            model.addRow(new Object[]{"", ""});return true;
+        int last = model.getRowCount() - 1;
+        model.addRow(new Object[]{"", ""});
+        return true;
     }
-public void clearTable(JTable table)
-{
-    DefaultTableModel model = (DefaultTableModel) table.getModel();
-    model.getDataVector().removeAllElements();
-    //revalidate();
-}
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+
+    public void clearTable(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.getDataVector().removeAllElements();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -3,26 +3,17 @@ package project.app;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class InflowsOutflows extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AllCashFlow
-     */
     public JPanel initUI() {
         initComponents();
         save.setVisible(false);
-        //GetData();
         return (this);
-
     }
 
     public void setlistners(JFrame jframe) {
@@ -39,9 +30,7 @@ public class InflowsOutflows extends javax.swing.JPanel {
     public void viewinflowoutflow() {
         String month2 = (String) month.getSelectedItem();
         String year2 = (String) year.getSelectedItem();
-
         String date = month2 + "-" + year2;
-
         SQL sql = new SQL();
         String query = String.format("SELECT cost FROM orders WHERE date like '___%s'", date);
         System.out.println(query);
@@ -72,7 +61,7 @@ public class InflowsOutflows extends javax.swing.JPanel {
         query = String.format("SELECT * FROM INFLOW WHERE date='%s'", date);
 
         System.out.println(query);
-        String totalinflow = "0", totaloutflow = "0",netcash="";
+        String totalinflow = "0", totaloutflow = "0", netcash = "";
         try {
             ResultSet rs = sql.execute(query, true);
             if (rs.next()) {
@@ -96,8 +85,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
                 sql.c.close();
                 rs.close();
                 System.out.println("False");
-                //message.setText(" Invalid user.. ");
-
             }
         } catch (NumberFormatException | SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -108,7 +95,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
         try {
             ResultSet rs = sql.execute(query, true);
             if (rs.next()) {
-
                 String electricity_costs2 = rs.getString("electricity_costs");
                 electricity_costs.setText(electricity_costs2);
                 String rent_costs2 = rs.getString("rent_costs");
@@ -117,7 +103,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
                 loan_payment.setText(loan_payments2);
                 String other_costs2 = rs.getString("other_costs");
                 other_costs.setText(other_costs2);
-
                 totaloutflow = Integer.toString(wages_num + Integer.parseInt(electricity_costs2)
                         + Integer.parseInt(rent_costs2) + Integer.parseInt(loan_payments2) + Integer.parseInt(other_costs2));
                 total_outflows.setText(totaloutflow);
@@ -125,7 +110,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
                 rs.close();
 
             } else {
-
                 electricity_costs.setText("");
                 rent_costs.setText("");
                 loan_payment.setText("");
@@ -134,7 +118,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
                 sql.c.close();
                 rs.close();
                 System.out.println("False");
-                //message.setText(" Invalid user.. ");
             }
         } catch (NumberFormatException | SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -182,10 +165,8 @@ public class InflowsOutflows extends javax.swing.JPanel {
             save.setVisible(true);
             return true;
         } else {
-            //JOptionPane.showMessageDialog( "Select a date to Edit.","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
     }
 
     public boolean saveaction(JFrame jframe) {
@@ -235,32 +216,12 @@ public class InflowsOutflows extends javax.swing.JPanel {
             int val2 = sql.updateQuery(query2);
             System.out.println(val);
             if (0 == val || 0 == val2) {
-                //message.setText(" Hello " + userName+ "");
-                /*electricity_costs.setText("");
-                rent_costs.setText("");
-                loan_payment.setText("");
-                other_costs.setText("");       
-   loans.setText("");
-               
-                customer_gifts.setText("");
-               
-                other_revenue.setText("");
-              
-                total_inflows.setText("");
-                 netcashflow.setText("");  
-
-   
-           total_outflows.setText("");*/
-
                 edit.setVisible(true);
                 save.setVisible(false);
-                // selected = 0;
                 JOptionPane.showMessageDialog(jframe, "Transactions Updated");
                 return true;
             } else {
                 JOptionPane.showMessageDialog(jframe, "Invalid details", "Error", JOptionPane.ERROR_MESSAGE);
-                //System.out.println("False");
-                //message.setText(" Invalid user.. ");
                 return false;
             }
         } catch (HeadlessException e) {
@@ -268,14 +229,8 @@ public class InflowsOutflows extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(jframe, "ERROR!!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

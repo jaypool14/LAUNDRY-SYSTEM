@@ -30,7 +30,6 @@ public class GetUsers
         catch ( Exception e ) 
         {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            //return false;
         }
         return user_list;
     }
