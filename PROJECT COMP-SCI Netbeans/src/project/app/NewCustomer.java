@@ -150,7 +150,7 @@ public class NewCustomer extends JFrame {
             JOptionPane.showMessageDialog(jframe, "Invalid Number. Try again", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (mail_check == false) {
+        else if (mail_check == false) {
             JOptionPane.showMessageDialog(jframe, "Invalid Email. Try again", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

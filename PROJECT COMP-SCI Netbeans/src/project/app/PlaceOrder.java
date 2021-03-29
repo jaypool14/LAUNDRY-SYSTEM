@@ -79,7 +79,7 @@ public class PlaceOrder extends JFrame {
             if (id != 0) {
                 JOptionPane.showMessageDialog(jframe, "Your Order has been placed.\nYour order ID is: " + id + "\nPlease check your Email for Invoice", "THANK YOU!", JOptionPane.INFORMATION_MESSAGE);
                 // Create a send class
-                SendMail1 obj = new SendMail1();
+                SendMail obj = new SendMail();
                 // create and send the Invoice
                 obj.create_bill(id);
                 return true;

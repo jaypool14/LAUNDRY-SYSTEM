@@ -153,7 +153,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
     public boolean editaction() {
         int selected = 1;
         if (selected == 1) {
-
             other_costs.setEnabled(true);
             other_revenue.setEnabled(true);
             rent_costs.setEnabled(true);
@@ -161,7 +160,6 @@ public class InflowsOutflows extends javax.swing.JPanel {
             loans.setEnabled(true);
             customer_gifts.setEnabled(true);
             electricity_costs.setEnabled(true);
-
             save.setVisible(true);
             return true;
         } else {
@@ -197,14 +195,44 @@ public class InflowsOutflows extends javax.swing.JPanel {
         boolean loan_payment3 = Pattern.matches("[0-9]+", loan_payment2);
         boolean other_costs3 = Pattern.matches("[0-9]+", other_costs2);
         boolean rent_costs3 = Pattern.matches("[0-9]+", rent_costs2);
-
-        if (loans3 == false || other_revenue3 == false || customer_gifts3 == false) {
-            JOptionPane.showMessageDialog(jframe, "Invalid Inflow value. Try again", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+        
+        // validation checks to see if the entered value is non empty and numeric. Give error message for invalid values
+        if (loans3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for loans. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
         }
-        if (electricity_costs3 == false || loan_payment3 == false || other_costs3 == false || rent_costs3 == false) {
-            JOptionPane.showMessageDialog(jframe, "Invalid Outflow value. Try again", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+        else if (other_revenue3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for other revenue. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        else if (customer_gifts3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for cutomer gifts. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        
+        // Outflow validation
+        if (electricity_costs3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for electricity costs gifts. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        else if (loan_payment3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for loan payment. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        else if (other_costs3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for other costs. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        else if (rent_costs3 == false)
+        {
+        JOptionPane.showMessageDialog(jframe, "Invalid value for rent costs. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
         }
 
         String query = String.format("UPDATE inflow set loans = '%s', customer_gift= '%s',other_revenue ='%s' where date='%s'", loans2, customer_gifts2, other_revenue2, date);
